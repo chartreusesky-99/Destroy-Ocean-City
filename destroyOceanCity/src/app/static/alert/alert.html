@@ -1,0 +1,12 @@
+<div class="alert-container">
+    @for (alert of alertService.alerts(); track $index) {
+        <div class="alert" [ngClass]="alert.type">
+            <span [innerHTML]="alert.message"></span>
+            @if (alert.dismissible) {
+                <button (click)="dismiss(alert.id)">
+                    ×
+                </button>
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,10 @@
+{
+  "/wp-api": {
+    "target": "https://destroyoceancity.app/wp-json",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/wp-api": ""
+    }
+  }
+}
