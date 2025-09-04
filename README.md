@@ -12,6 +12,7 @@ To start a local development server, run the following in /angular:
 
 ```bash
 npm install
+```bash
 npm start
 ```
 
