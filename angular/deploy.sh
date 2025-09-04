@@ -18,12 +18,22 @@ if [[ "$confirm" != "y" ]]; then
     exit 1
 fi
 
+# Verify build folder exists
+if [ ! -d "dist/$APP_NAME" ]; then
+    echo "Error: build output not found at dist/$APP_NAME"
+    exit 1
+fi
+
 echo "Copying build output to deployment directory..."
-rm -rf $DEPLOY_DIR/*
-cp -r dist/$APP_NAME/* $DEPLOY_DIR/
+rm -rf "$DEPLOY_DIR"/*
+cp -r "dist/$APP_NAME/"* "$DEPLOY_DIR/"
 
 echo "Committing and pushing to dist branch..."
-cd $DEPLOY_DIR
+cd "$DEPLOY_DIR"
 
 git add .
-git commit -m "Deploy: $(date "+%Y-%m-%d %H:%M:%S")" || echo "No changes to commit"
+git commit -m "Deploy: $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+git push origin dist
+
+echo "Deployment complete!"
+cd - > /dev/null
