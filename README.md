@@ -6,7 +6,7 @@ See the current production build at [Destroy Ocean City](https://destroyocean.ci
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.6.
 
-## Development server
+## Prepare your Environment
 
 Developing, building, and running the application locally requires the latest [Node Package Manager](https://www.npmjs.com).
 
@@ -16,17 +16,19 @@ Once NPM is installed locally, you will need to install Angular by using the fol
 npm install -g @angular/cli
 ```
 
-To start a local development server, run the following in /angular:
+## Running the Development Server
+
+To start a local development server, run the following command in `/angular`. This command installs necessary node packages for developing and building the Angular application.
 
 ```bash
 npm install
 ```
-This command installs necessary node packages for developing and building the Angular application.
+
+Next, use the following command to launch the Angular app in development mode.
 
 ```bash
 npm start
 ```
-This command launches the Angular App in development mode.
 
 Once the server is running, open your browser and navigate to `http://localhost:4400/`. The application will automatically reload whenever you modify any of the source files.
 
@@ -38,11 +40,11 @@ To build the project, run the following in /angular:
 ng build --configuration production
 ```
 
-This will compile the project and store the build artifacts in the `dist/destroyOceanCity` directory. Note that automatic deployments do not use the main branch or the /angular/dist directory, instead favoring the /angular-deploy directory.
+This will compile the project and store the build artifacts in the `dist/destroyOceanCity` directory. Note that automatic deployments do not use the main branch or the `/angular/dist` directory, instead favoring the `/angular/angular-deploy` directory.
 
 ## Automatic Deployment with Github Connect
 
-If this is the first time you are using the deployment script, you must first authorize it by running the following in /angular:
+If this is the first time you are using the deployment script, you must first authorize it by running the following in `/angular`:
 
 ```bash
 chmod +x deploy.sh
