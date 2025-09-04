@@ -1,4 +1,4 @@
-# destroyoceancity frontend
+# Destroy Ocean City
 
 Sometimes you must destroy what you love to really save it.
 
@@ -7,6 +7,14 @@ See the current production build at [Destroy Ocean City](https://destroyocean.ci
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.6.
 
 ## Development server
+
+Developing, building, and running the application locally requires the latest [Node Package Manager](https://www.npmjs.com).
+
+Once NPM is installed locally, you will need to install Angular by using the following command.
+
+```bash
+npm install -g @angular/cli
+```
 
 To start a local development server, run the following in /angular:
 
