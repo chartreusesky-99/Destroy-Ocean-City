@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
@@ -7,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrl: './not-found.css'
 })
 export class NotFound {
+  attemptedUrl = signal<string>('');
+
+  constructor(private router: Router) {
+    this.attemptedUrl.set(router.url);
+
+  }
 
 }

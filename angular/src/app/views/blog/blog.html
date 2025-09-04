@@ -1,1 +1,18 @@
-<p>blog works!</p>
+<p>blog view</p>
+
+@if (!post()) {
+    <div class="d-flex align-items-center">
+        <strong>Loading Content...</strong>
+        <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+    </div>
+}
+
+@if (post()) {
+    <div class="card mb-4">
+        <div class="card-body">
+            <h1 [innerHTML]="post()!.title.rendered"></h1>
+            <div [innerHTML]="post()!.content.rendered"></div>
+        </div>
+    </div>
+}
+

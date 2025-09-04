@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ApiService } from '../../services/api-service';
 
 @Component({
   selector: 'app-header',
@@ -9,18 +8,9 @@ import { ApiService } from '../../services/api-service';
   styleUrl: './header.css'
 })
 export class Header {
-  posts: any;
 
-  constructor(private api: ApiService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.api.getPosts().subscribe({
-      next: (data) => {
-        this.posts = data;
-        console.log('Posts:', data);
-      },
-      error: (err) => console.error('Error loading posts', err)
-    });
-  }
+  ngOnInit() {}
 
 }

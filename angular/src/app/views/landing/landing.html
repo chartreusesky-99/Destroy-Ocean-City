@@ -1,24 +1,46 @@
 <p>
-    landing view
+  landing view
 </p>
 
+<section class="landing-heading">
+  <h2>
+    A storm is coming...
+  </h2>
+  <p>
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+  </p>
+</section>
+
 <section class="recent-posts">
-  <h2>recentPostPreviewer</h2>
+  <h2>See What the Experts are Saying:</h2>
   @if (posts().length === 0) {
     <div>
         No posts to display.
     </div>
   }
-  <ul>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
     @for (post of posts(); track $index) {
-        <li>
-            <a [href]="post.link" target="_blank">
-                <h3 [innerHTML]="post.title.rendered"></h3>
-                <p [innerHTML]="post.excerpt.rendered"></p>
+      <div class="col">
+        <div class="card h-100">
+          @if (featuredImage(post)) {
+            <img [src]="featuredImage(post)" class="card-img-top" alt="Featured image">
+          }
+          <div class="card-body">
+            <a [routerLink]="['/blog/', post.id]">
+              <h4 [innerHTML]="post.title.rendered"></h4>
             </a>
-            <p>No data consumed by author module. This is probably an error.</p>
-            <p>authorComponent works!</p>
-        </li>
+            <blockquote class="blockquote mb-0">
+              <p [innerHTML]="post.excerpt.rendered"></p>
+              <footer class="blockquote-footer mt-4">
+                @if (authorAvatar(post)) {
+                  <img [src]="authorAvatar(post)" alt="Author avatar" class="rounded-circle" width="48" height="48">
+                }
+                {{ post._embedded?.author?.[0]?.name || 'Unknown Author' }}
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
     }
-  </ul>
+  </div>
 </section>
