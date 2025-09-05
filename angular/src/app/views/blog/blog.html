@@ -1,16 +1,18 @@
-@if (!post()) {
-    <div class="d-flex align-items-center">
-        <strong>Loading Content...</strong>
-        <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
-    </div>
-}
-
-@if (post()) {
-    <div class="card mb-4">
-        <div class="card-body">
-            <h1 [innerHTML]="post()!.title.rendered"></h1>
-            <div [innerHTML]="post()!.content.rendered"></div>
+<div class="container mt-4">
+  @if (post(); as isolatedPost) {
+    <!-- Single Post View -->
+    <app-postViewer [post]="isolatedPost"></app-postViewer>
+  } @else {
+    <!-- Promoted Posts List -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      @for (post of posts(); track post.id) {
+        <div class="col">
+            <div class="card">
+                <app-postPreviewer [post]="post"></app-postPreviewer>
+            </div>
         </div>
+      }
     </div>
-}
+  }
+</div>
 
