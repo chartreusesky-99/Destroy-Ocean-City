@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api-service';
+import { IdentityService } from '../../services/identity-service';
 import { post } from '../../models/post-model';
 
 @Component({
@@ -12,7 +13,11 @@ import { post } from '../../models/post-model';
 export class Blog {
   post = signal<post | null>(null);
 
-  constructor(private route: ActivatedRoute, private api: ApiService ) {}
+  constructor(
+    private route: ActivatedRoute,
+    private api: ApiService,
+    public identity: IdentityService 
+  ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('contentId'));
@@ -29,13 +34,4 @@ export class Blog {
 
   }
 
-  authorAvatar(post: post): string | null {
-    return post._embedded?.author?.[0]?.avatar_urls?.['48'] || null;
-
-  }
-
-  authorName(post: post): string {
-    return post._embedded?.author?.[0]?.name || 'Unknown Author';
-
-  }
 }
