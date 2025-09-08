@@ -11,7 +11,6 @@
   animation: 160ms ease-in vt-fade-in;
 }
 
-/* keep header/alerts from crossfading if you want them stable */
 header, app-alert {
   view-transition-name: none;
 }

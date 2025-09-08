@@ -1,15 +1,25 @@
-<div class="alert-container">
-    @for (alert of alertService.alerts(); track $index) {
-        <div class="alert" [ngClass]="alert.type">
-            <p class="m-0">
-                <i class="bi bi-exclamation-diamond"></i>&nbsp;
-                <span [innerHTML]="alert.message"></span>
-            </p>
-            @if (alert.dismissible) {
-                <button (click)="dismiss(alert.id)">
-                    ×
-                </button>
-            }
-        </div>
-    }
-</div>
+
+@for (alert of alertService.alerts(); track $index) {
+    <div class="alert my-2" [ngClass]="{
+        'alert-success' : [alert.type].toString() == 'success',
+        'alert-warning' : [alert.type].toString() == 'warning',
+        'alert-danger' : [alert.type].toString() == 'error',
+        'alert-info' : [alert.type].toString() == 'info'
+    }">
+        <h6 class="m-0">
+            <i class="bi" style="font-size: 20px;"[ngClass]="{
+                'bi-check-circle' : [alert.type].toString() == 'success',
+                'bi-exclamation-diamond' : [alert.type].toString() == 'warning',
+                'bi-exclamation-octagon' : [alert.type].toString() == 'error',
+                'bi-info-circle' : [alert.type].toString() == 'info'
+            }"></i>&nbsp;
+            <span [innerHTML]="alert.message"></span>
+        </h6>
+        <span [innerHTML]="alert.type"></span>
+        @if (alert.dismissible) {
+            <button (click)="dismiss(alert.id)">
+                ×
+            </button>
+        }
+    </div>
+}
