@@ -11,6 +11,7 @@ export const routes: Routes = [
   { path: 'home', redirectTo: '' },
   { path: 'landing', redirectTo: '' },
   { path: 'blog', component: Blog },
+  { path: 'blog/author/:authorName', component: Blog},
   { path: 'blog/:contentId', component: Blog},
   { path: 'test', component: Testing },
   { path: 'not-found', component: NotFound },
