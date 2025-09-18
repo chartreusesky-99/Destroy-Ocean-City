@@ -1,31 +1,64 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <!-- Responsive Logo -->
-        <a class="destroyOceanCityLogo fs-1 d-none d-md-block" routerLink="/landing" href="#">
-            <span class="destroy">Destroy</span> Ocean City!
-        </a>
-        <a class="destroyOceanCityLogo fs-4 d-xs-block d-sm-block d-md-none" routerLink="/landing" href="#">
-            <span class="destroy">Destroy</span> Ocean City!
+        <!-- Responsive DESTROY OCEAN CITY! Logo -->
+        <a href="/" class="d-flex mb-2 mb-lg-0 text-dark text-decoration-none">
+            <a class="destroyOceanCityLogo fs-1 d-none d-sm-block" routerLink="/landing" href="#">
+                <span class="destroy">Destroy</span> Ocean City!
+            </a>
+            <a class="destroyOceanCityLogo fs-4 d-xs-block d-sm-none" routerLink="/landing" href="#">
+                <span class="destroy">Destroy</span> Ocean City!
+            </a>
         </a>
         <!-- Mobile Hamburger -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Collapsing Navigation Items -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/" routerLinkActive="active" href="#">
+                    <a class="nav-link px-2" routerLink="/" routerLinkActive="active">
                         Home
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/blog" routerLinkActive="active" href="#">
+                    <a class="nav-link px-2" routerLink="/blog" routerLinkActive="active">
                         Blog
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/store" routerLinkActive="active" href="#">
+                <li class="nav-item d-none">
+                    <a class="nav-link px-2" routerLink="/store" routerLinkActive="active">
                         Store
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Theme Switcher -->
+        <div class="dropdown ms-auto align-self-center">
+            <a href="javascript:void(null)" class="d-block text-white text-decoration-none dropdown-toggle" id="themeToggler" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi" [ngClass]="theme.currentTheme() === 'light' ? 'bi-brightness-high' : 'bi-moon-stars'"></i>
+            </a>
+            <ul class="dropdown-menu themeToggleMenu paper text-small" aria-labelledby="themeToggler" data-popper-placement="bottom-end">
+                <li>
+                    <a class="dropdown-item" href="javascript:void(null)" (click)="theme.setTheme('auto')">
+                        <i [ngClass]="theme.currentThemeSetting() === 'auto' ? 'bi bi-check2-circle' : 'd-none'"></i>&nbsp;
+                        Automatic
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" href="javascript:void(null)" (click)="theme.setTheme('forceLight')">
+                        <i [ngClass]="theme.currentThemeSetting() === 'forceLight' ? 'bi bi-check2-circle' : 'd-none'"></i>&nbsp;
+                        Light
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="javascript:void(null)" (click)="theme.setTheme('forceDark')">
+                        <i [ngClass]="theme.currentThemeSetting() === 'forceDark' ? 'bi bi-check2-circle' : 'd-none'"></i>&nbsp;
+                        Dark
                     </a>
                 </li>
             </ul>

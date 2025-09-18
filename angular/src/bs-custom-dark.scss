@@ -5,7 +5,16 @@ $success: #B4DC7F;
 $info: #A1A1A1;
 $warning: #C6A41C;
 $danger: #D51414;
-$body-bg: hsl(0, 0%, 95%);
+$body-bg: #000000;
+$body-color: #f8f9fa;
+$dark: #000000;
+
+// Bootstrap Card Utilities
+$card-bg: #111111;
+$card-color: $body-color;
+$card-border-color: #333333;
+
+// Other Bootstrap Utilites
 $border-radius: 0.5rem;
 
 // Bootstrap Mixin
@@ -17,11 +26,16 @@ $border-radius: 0.5rem;
   $warning: $warning,
   $danger: $danger,
   $body-bg: $body-bg,
-  $border-radius: $border-radius
+  $border-radius: $border-radius,
+  $body-color: $body-color,
+  $dark: $dark,
+  $card-bg: $card-bg,
+  $card-color: $card-color,
+  $card-border-color: $card-border-color
 );
 
 // Theme Specific Rules
 .paper {
   max-width: 1024px; 
-  filter: drop-shadow(0px 0px 15px #dadadaff);
+  filter: drop-shadow(0px 0px 15px #515151);
 }

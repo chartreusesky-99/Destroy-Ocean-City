@@ -10,7 +10,7 @@ import { Slogans } from '../../data/slogans';
   selector: 'app-postViewer',
   imports: [ CommentViewer, RouterLink ],
   template: `
-    <div class="card mb-4 p-sm-2 p-md-5 mx-auto" style="max-width: 1024px; filter: drop-shadow(0px 0px 15px #dadadaff);">
+    <div class="card paper mb-4 p-sm-2 p-md-5 mx-auto">
       <div class="card-body">
         <h1 [innerHTML]="post!.title.rendered"></h1>
         <blockquote class="blockquote float-right mb-0">

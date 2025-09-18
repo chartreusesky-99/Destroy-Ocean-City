@@ -56,3 +56,10 @@ cursor-default {
 	    0 7px 0 hsl(0, 10%, 34%),
 	    0 8px 0 hsl(0, 5%, 30%);
 }
+
+.themeToggleMenu {
+	position: absolute;
+	inset: 0px auto auto 0px;
+	margin: 0px;
+	transform: translate3d(-130px, 10px, 0px);
+}
