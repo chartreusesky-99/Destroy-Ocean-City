@@ -3,7 +3,7 @@ set -e
 
 APP_NAME="destroyOceanCity"
 DEPLOY_DIR="../angular-deploy"
-BRANCH="gh-pages"   # <-- was "dist"
+BRANCH="gh-pages"   # GitHub Pages branch
 
 echo "Building Angular app for production..."
 ng build --configuration production
@@ -37,6 +37,10 @@ echo "Copying build output to deployment directory..."
 rm -rf "$DEPLOY_DIR"/*
 cp -r "dist/$APP_NAME/"* "$DEPLOY_DIR/"
 
+# ---- GitHub Pages SPA fix ----
+echo "Adding SPA fallback (index.html → 404.html)..."
+cp "$DEPLOY_DIR/index.html" "$DEPLOY_DIR/404.html"
+
 echo "Committing and pushing to $BRANCH branch..."
 cd "$DEPLOY_DIR"
 git add .
@@ -44,4 +48,5 @@ git commit -m "Deploy: $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to comm
 git push origin "$BRANCH"
 
 echo "Deployment complete!"
+echo "Reminder: SPA fallback is active (index.html also copied to 404.html)."
 cd - > /dev/null

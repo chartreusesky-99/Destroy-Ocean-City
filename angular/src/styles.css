@@ -45,7 +45,7 @@ cursor-default {
 }
 
 .destroy {
-    color: hsl(0, 70%, 60%);
+    color: #E05252;
     text-shadow:
         0 1px 0 hsl(0, 25%, 48%),
 	    0 2px 0 hsl(0, 25%, 54%),
