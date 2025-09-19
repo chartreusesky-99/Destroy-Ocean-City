@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FeaturedImageService } from '../../services/featuredImage-service';
 import { IdentityService } from '../../services/identity-service';
@@ -6,10 +7,16 @@ import { post } from '../../models/post-model';
 
 @Component({
   selector: 'app-postPreviewer',
-  imports: [ RouterLink ],
+  imports: [ RouterLink, NgClass ],
   template: `
     @if (this.featured.image(post)) {
-      <img [src]="this.featured.image(post)" class="card-img-top" alt="Featured image">
+      <div class="cursor-pointer" [ngClass]="cropFeaturedImage ? 'previewer-image-crop' : ''" [routerLink]="['/blog/', post.id]">
+          <img [src]="this.featured.image(post)" class="card-img-top" alt="Featured image">
+      </div>
+    } @else if (cropFeaturedImage) {
+      <div class="cursor-pointer previewer-image-crop" [routerLink]="['/blog/', post.id]">
+        <img [src]="this.featured.randomFallback()" class="card-img-top" alt="Featured image">
+      </div>
     }
     <div class="card-body">
       <a [routerLink]="['/blog/', post.id]">
@@ -28,6 +35,7 @@ import { post } from '../../models/post-model';
 })
 export class PostPreviewer {
   @Input() post!: post;
+  @Input() cropFeaturedImage: boolean = false;
 
   constructor(
     public featured: FeaturedImageService,

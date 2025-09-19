@@ -26,7 +26,7 @@
       @for (post of posts(); track $index) {
         <div class="col">
           <div class="card h-100">
-            <app-postPreviewer [post]="post"></app-postPreviewer>
+            <app-postPreviewer [post]="post" [cropFeaturedImage]="true"></app-postPreviewer>
           </div>
         </div>
       }

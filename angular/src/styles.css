@@ -12,7 +12,7 @@ h3,h4,h5,h6 {
     font-weight: 700;
 }
 
-cursor-pointer {
+.cursor-pointer {
 	cursor: pointer;
 }
 
@@ -62,4 +62,9 @@ cursor-default {
 	inset: 0px auto auto 0px;
 	margin: 0px;
 	transform: translate3d(-130px, 10px, 0px);
+}
+
+.previewer-image-crop {
+	overflow: hidden;
+	max-height: 225px;
 }

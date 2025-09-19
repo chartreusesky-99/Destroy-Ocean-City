@@ -28,6 +28,7 @@ export class Slogans {
         'Only the Facts we like',
         'Protect Fishermen',
         'Not On My Beach',
+        'Everything you Read on the Internet is True',
         'What the fuck is a Kilometer'
 
     ];
