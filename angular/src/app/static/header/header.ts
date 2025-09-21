@@ -6,8 +6,7 @@ import { ThemeService } from '../../services/theme-service';
 @Component({
   selector: 'app-header',
   imports: [ NgClass, RouterLink ],
-  templateUrl: './header.html',
-  styleUrl: './header.css'
+  templateUrl: './header.html'
 })
 export class Header {
 

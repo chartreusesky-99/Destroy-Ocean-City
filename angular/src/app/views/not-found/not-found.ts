@@ -5,8 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-not-found',
   imports: [],
-  templateUrl: './not-found.html',
-  styleUrl: './not-found.css'
+  templateUrl: './not-found.html'
 })
 export class NotFound {
   attemptedUrl = signal<string>('');

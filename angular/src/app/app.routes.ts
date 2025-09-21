@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 // Views Import
 import { Landing } from './views/landing/landing';
 import { Blog } from './views/blog/blog';
+import { Privacy } from './views/privacy/privacy';
 import { Testing } from './views/testing/testing';
 import { NotFound } from './views/not-found/not-found';
 
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'blog', component: Blog },
   { path: 'blog/author/:authorName', component: Blog},
   { path: 'blog/:contentId', component: Blog},
+  { path: 'privacy', component: Privacy },
   { path: 'test', component: Testing },
   { path: 'not-found', component: NotFound },
   { path: '**', redirectTo: 'not-found' } // 404 catch
