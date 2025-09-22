@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, throwError, switchMap } from 'rxjs';
+import { catchError, Observable, throwError, switchMap, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AlertService } from './alert-service';
 import { post } from '../models/post-model';
@@ -19,7 +19,7 @@ export class ApiService {
       .get<post[]>(`${this.baseUrl}/posts?categories=${this.promotedId}&_embed`)
       .pipe(
         map(posts => posts || []),
-        catchError(err => this.handleError(err, `fetching posts for tag ${tagId}`))
+        catchError(err => this.handleError(err, `fetching posts for Promoted tag ${tagId}.`))
       );
   }
 
@@ -30,7 +30,7 @@ export class ApiService {
         .pipe(map(comments => ({ post: postData, comments }))
       )
     ),
-    catchError(err => this.handleError(err, `loading post with ID ${id}`))
+    catchError(err => this.handleError(err, `loading post with ID ${id}.`))
     );
   }
 
@@ -45,7 +45,38 @@ export class ApiService {
 
   getCommentsByPostId(postId: number): Observable<postComment[]> {
     return this.http
-      .get<postComment[]>(`${this.baseUrl}/comments?post=${postId}&_embed`);
+      .get<postComment[]>(`${this.baseUrl}/comments?post=${postId}&_embed&orderby=date&order=asc`)
+      .pipe(
+        map(posts => posts || []),
+        catchError(err => this.handleError(err, `fetching comments for post ID ${postId}.`))
+    );
+  }
+
+  getPostsByAuthorID(authorId: number): Observable<post[]> {
+    return this.http
+      .get<post[]>(`${this.baseUrl}/posts?author=${authorId}&categories=${this.promotedId}&_embed`)
+      .pipe(
+        map(posts => posts || []),
+        catchError(err => this.handleError(err, `fetching posts from author with ID ${authorId}.`))
+    );
+  }
+
+  getPostsByAuthorName(name: string): Observable<post[]> {
+    return this.getAuthorByName(name).pipe(
+      switchMap(author => {
+        if (!author) return of([]);
+        return this.getPostsByAuthorID(author.id);
+      })
+    );
+  }
+
+  getAuthorByName(name: string): Observable<any> {
+    return this.http
+      .get<any[]>(`${this.baseUrl}/users?per_page=100`)
+      .pipe(
+        map(users => users.find(u => u.name.toLowerCase() === name.toLowerCase()) || null),
+        catchError(err => this.handleError(err, `fetching author with name ${name}.`))
+    );
   }
 
   private handleError(error: any, context: string) {

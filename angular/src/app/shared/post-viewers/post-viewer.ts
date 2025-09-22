@@ -4,16 +4,15 @@ import { FeaturedImageService } from '../../services/featuredImage-service';
 import { IdentityService } from '../../services/identity-service';
 import { CommentViewer } from '../comment-viewer';
 import { post } from '../../models/post-model';
-import { Slogans } from '../../data/slogans';
 
 @Component({
   selector: 'app-postViewer',
   imports: [ CommentViewer, RouterLink ],
   template: `
-    <div class="card paper mb-4 p-sm-2 p-md-5 mx-auto">
-      <div class="card-body">
-        <h1 [innerHTML]="post!.title.rendered"></h1>
-        <blockquote class="blockquote float-right mb-0">
+    <div class="card paper px-0 mb-4 mx-auto">
+      <div class="card-body p-sm-2 p-md-5">
+        <h1 [innerHTML]="post!.title.rendered" class="cursor-default"></h1>
+        <blockquote class="blockquote float-right cursor-default mb-0">
           <section class="text-muted text-center my-4">
             @if (this.identity.authorAvatar(post)) {
               <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="rounded-circle" width="48" height="48">
@@ -22,21 +21,12 @@ import { Slogans } from '../../data/slogans';
           </section>
         </blockquote>
         <div [innerHTML]="post!.content.rendered"></div>
-        <div class="d-flex mt-4 justify-content-center w-100">
-          See more from &nbsp;
-          <a routerLink="/blog/author/{{ this.identity.authorName(post) }}" class="link-primary">
-            {{ this.identity.authorName(post) }}
-          </a>, or &nbsp;
-          <a class="link-primary mouse-pointer" routerLink="/blog">
-            See More Posts
-          </a>
+      </div>
+      <div class="card-footer px-sm-2 px-md-5 pb-sm-2 pb-md-5">
+        <div class="d-sm-none d-md-flex mt-4 justify-content-center cursor-default w-100">
+          See more from&nbsp;<span routerLink="/blog/author/{{ this.identity.authorName(post).trimEnd() }}" class="link-primary cursor-pointer">{{ this.identity.authorName(post).trimEnd() }}</span>, or&nbsp;<span class="link-primary cursor-pointer" routerLink="/blog">See More Posts</span>.
         </div>
         <app-commentViewer [postId]="post!.id"></app-commentViewer>
-        <div class="d-flex justify-content-center w-100 mt-4">
-          <small class="text-muted">
-            <i class="bi bi-filter-right"></i> {{ slogans.getRandomSlogan() }} <i class="bi bi-filter-left"></i>
-          </small>
-        </div>
       </div>
     </div>
   `
@@ -46,8 +36,7 @@ export class PostViewer {
 
   constructor(
     public featured: FeaturedImageService,
-    public identity: IdentityService,
-    public slogans: Slogans
+    public identity: IdentityService
   ){}
 
 }

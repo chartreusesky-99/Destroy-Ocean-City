@@ -8,16 +8,15 @@ import { Streets } from '../data/streets';
   selector: 'app-commentViewer',
   imports: [ DatePipe ],
   template: `
-    <hr class="mt-5">
-    <h5 class="mt-4 mb-2 text-secondary">
+    <h5 class="mt-4 mb-2 text-secondary cursor-default">
       <i class="bi bi-life-preserver text-primary"></i> What Real Locals Have to Say:
     </h5>
     <div class="mb-4">
       @for (comment of comments; track comment.id) {
         <div class="card mb-2">
           <div class="card-body">
-            <h6 class="mt-0 mb-1">
-              <img src="anonymous.jpg" alt="Commentor avatar" class="rounded-circle" width="32" height="32">
+            <h6 class="cursor-default mt-0 mb-1">
+              <img src="anonymous.jpg" alt="{{ comment.author_name }}'s Avatar" class="rounded-circle" width="32" height="32">
               &emsp;{{ comment.author_name }}
               <small class="text-muted"> 
                 &emsp;&mdash;
