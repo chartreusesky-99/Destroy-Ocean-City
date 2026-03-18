@@ -1,6 +1,6 @@
 # DestroyOceanCity
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.6.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.6 and upgraded to 21.2.4.
 
 ## Development server
 
