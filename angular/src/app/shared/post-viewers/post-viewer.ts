@@ -11,7 +11,7 @@ import { post } from '../../models/post-model';
   template: `
     <div class="card paper px-0 mb-4 mx-auto">
       <div class="card-body p-sm-2 p-md-5">
-        <h1 [innerHTML]="post!.title.rendered" class="cursor-default"></h1>
+        <h1 [innerHTML]="post!.title.rendered" class="oblique cursor-default"></h1>
         <blockquote class="blockquote float-right cursor-default mb-0">
           <section class="text-muted text-center my-4">
             @if (this.identity.authorAvatar(post)) {
@@ -24,7 +24,9 @@ import { post } from '../../models/post-model';
       </div>
       <div class="card-footer px-sm-2 px-md-5 pb-sm-2 pb-md-5">
         <div class="d-sm-none d-md-flex mt-4 justify-content-center cursor-default w-100">
-          See more from&nbsp;<span routerLink="/blog/" [queryParams]="{ a: this.identity.authorName(post).trimEnd() }" class="link-primary cursor-pointer">{{ this.identity.authorName(post).trimEnd() }}</span>, or&nbsp;<span class="link-primary cursor-pointer" routerLink="/blog">See More Posts</span>.
+          <p>
+            See more from&nbsp;<span routerLink="/blog/" [queryParams]="{ a: this.identity.authorName(post) }" class="link-primary cursor-pointer">{{ this.identity.authorName(post).trimEnd() }}</span>, or&nbsp;<span class="link-primary cursor-pointer" routerLink="/blog">See More Posts</span>.
+          </p>
         </div>
         <app-commentViewer [postId]="post!.id"></app-commentViewer>
       </div>

@@ -1,24 +1,77 @@
-@if (post(); as isolatedPost) {
+@if (isLoadingSinglePost()) {
+  <article class="card paper px-0 mb-4 mx-auto single-post-loading">
+    <div class="card-body p-sm-2 p-md-5">
+      <div class="single-post-loading-title shimmer"></div>
+
+      <section class="single-post-loading-meta text-muted text-center my-4">
+        <div class="single-post-loading-avatar shimmer"></div>
+        <div class="single-post-loading-author-line shimmer"></div>
+      </section>
+
+      <div class="single-post-loading-content">
+        <div class="single-post-loading-line shimmer"></div>
+        <div class="single-post-loading-line shimmer"></div>
+        <div class="single-post-loading-line short shimmer"></div>
+        <div class="single-post-loading-line shimmer"></div>
+        <div class="single-post-loading-line shimmer"></div>
+        <div class="single-post-loading-line medium shimmer"></div>
+      </div>
+    </div>
+
+    <div class="card-footer px-sm-2 px-md-5 pb-sm-2 pb-md-5 single-post-loading-footer">
+      <div class="single-post-loading-links d-sm-none d-md-flex mt-4 justify-content-center w-100">
+        <div class="single-post-loading-link shimmer"></div>
+      </div>
+
+      <div class="single-post-loading-comments mt-4">
+        <div class="single-post-loading-comment-title shimmer"></div>
+        <div class="single-post-loading-comment shimmer"></div>
+        <div class="single-post-loading-comment shimmer"></div>
+      </div>
+    </div>
+  </article>
+} @else if (post(); as isolatedPost) {
   <!-- Single Post View -->
   <app-postViewer [post]="isolatedPost"></app-postViewer>
 } @else {
   <!-- Promoted Posts List -->
-  <h1 class="cursor-default oblique">
-    See what our Experts have to Say:
-  </h1>
-  <div class="row">
-    <div class="col-12 mb-2">
-      <a><i class="bi bi-filter-square"></i>&nbsp;Most Recent - Oldest</a>
-      <span class="badge rounded-pill text-bg-light">Author: Gigi Santana</span>
+  <h1 class="cursor-default oblique blog-heading" [innerHTML]="heading"></h1>
+  <div class="row blog-toolbar">
+    <div class="col-12 align-items-center">
+      <small class="cursor-pointer">
+        <button type="button" class="sort-toggle monospace" (click)="toggleSortOrder()">
+          <i class="bi" [class.bi-sort-down]="sortNewestFirst()" [class.bi-sort-up]="!sortNewestFirst()"></i>&nbsp;{{ sortNewestFirst() ? 'Most Recent - Oldest' : 'Oldest - Most Recent' }}
+        </button>&nbsp;
+      </small>
+      @if (isolation) {
+        @if (isolation.type === 'author') {
+          <button type="button" class="badge monospace rounded-pill cursor-pointer text-bg-light isolation-pill" (click)="clearIsolation()" aria-label="Clear author filter">
+            <i class="bi bi-x-lg close-rotate"></i>&nbsp;{{isolation.value}}
+          </button>
+        }
+      }
     </div>
   </div>
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    @for (post of posts(); track post.id) {
-      <div class="col">
-        <div class="card">
+  <hr>
+  <div class="posts-grid" #postsGrid>
+    @if (isLoadingPosts()) {
+      @for (skeleton of skeletonCards; track skeleton; let i = $index) {
+        <article class="post-card card skeleton-card" [class.skeleton-card-tall]="i % 3 === 0" [class.skeleton-card-short]="i % 3 === 1" [style.--reveal-delay]="(i * 60) + 'ms'">
+          <div class="skeleton-image shimmer"></div>
+          <div class="card-body">
+            <div class="skeleton-line skeleton-title shimmer"></div>
+            <div class="skeleton-line shimmer"></div>
+            <div class="skeleton-line skeleton-line-short shimmer"></div>
+            <div class="skeleton-author shimmer"></div>
+          </div>
+        </article>
+      }
+    } @else {
+      @for (post of posts(); track post.id; let i = $index) {
+        <div class="post-card card post-reveal" [style.--reveal-delay]="(i * 70) + 'ms'">
           <app-postPreviewer [post]="post"></app-postPreviewer>
         </div>
-      </div>
+      }
     }
   </div>
 }
