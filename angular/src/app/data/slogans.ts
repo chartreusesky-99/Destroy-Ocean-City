@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class Slogans {
 
-    public getRandomSlogan() {
-        let slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)];
-        return slogan
+    public getRandomSlogan(): string {
+        const slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)];
+        return slogan;
 
     }
 
