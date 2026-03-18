@@ -4,10 +4,10 @@
         <!-- Responsive DESTROY OCEAN CITY! Logo -->
         <a href="/" class="d-flex mb-2 mb-lg-0 text-dark text-decoration-none">
             <a class="destroyOceanCityLogo fs-1 d-none d-sm-block" routerLink="/landing" href="#">
-                <span class="destroy">Destroy</span> Ocean City!
+                <span class="destroy">Destroy</span>&nbsp;<span class="ocean-city">Ocean City!</span>
             </a>
             <a class="destroyOceanCityLogo fs-4 d-xs-block d-sm-none" routerLink="/landing" href="#">
-                <span class="destroy">Destroy</span> Ocean City!
+                <span class="destroy">Destroy</span>nbsp;<span class="ocean-city">Ocean City!</span>
             </a>
         </a>
         <!-- Mobile Hamburger -->
@@ -46,8 +46,8 @@
             </a>
             <ul class="dropdown-menu themeToggleMenu paper text-small" aria-labelledby="themeToggler" data-popper-placement="bottom-end">
                 <li>
-                    <a class="dropdown-item" href="javascript:void(null)" (click)="theme.setTheme('auto')">
-                        <i [ngClass]="theme.currentThemeSetting() === 'auto' ? 'bi bi-check2-circle' : 'd-none'"></i>&nbsp;
+                    <a class="dropdown-item dropdown-highlight cursor-pointer" (click)="theme.setTheme('auto')">
+                        <i ngClass="theme.currentThemeSetting() === 'auto' ? 'bi bi-check2-circle' : 'd-none'"></i>&nbsp;
                         Automatic
                     </a>
                 </li>
@@ -55,14 +55,14 @@
                     <hr class="dropdown-divider">
                 </li>
                 <li>
-                    <a class="dropdown-item" href="javascript:void(null)" (click)="theme.setTheme('forceLight')">
-                        <i [ngClass]="theme.currentThemeSetting() === 'forceLight' ? 'bi bi-check2-circle' : 'd-none'"></i>&nbsp;
+                    <a class="dropdown-item dropdown-highlight-light cursor-pointer" (click)="theme.setTheme('forceLight')">
+                        <i ngClass="theme.currentThemeSetting() === 'forceLight' ? 'bi bi-check2-circle' : 'd-none'"></i>&nbsp;
                         Light
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="javascript:void(null)" (click)="theme.setTheme('forceDark')">
-                        <i [ngClass]="theme.currentThemeSetting() === 'forceDark' ? 'bi bi-check2-circle' : 'd-none'"></i>&nbsp;
+                    <a class="dropdown-item dropdown-highlight-dark cursor-pointer" (click)="theme.setTheme('forceDark')">
+                        <i ngClass="theme.currentThemeSetting() === 'forceDark' ? 'bi bi-check2-circle' : 'd-none'"></i>&nbsp;
                         Dark
                     </a>
                 </li>

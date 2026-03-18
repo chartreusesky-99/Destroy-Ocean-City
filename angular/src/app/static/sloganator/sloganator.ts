@@ -6,7 +6,7 @@ import { Slogans } from '../../data/slogans';
   imports: [],
   template: `
   <div class="d-flex justify-content-center cursor-default mt-4 w-100">
-    <small class="text-muted">
+    <small class="text-muted monospace">
       <i class="bi bi-filter-right"></i> {{ slogans.getRandomSlogan() }} <i class="bi bi-filter-left"></i>
     </small>
   </div>

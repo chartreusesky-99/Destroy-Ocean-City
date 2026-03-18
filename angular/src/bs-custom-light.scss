@@ -1,6 +1,6 @@
 // Bootstrap Color Utilities
 $primary: #E05252;
-$secondary: #603939;
+$secondary: #9c9c9c;
 $success: #B4DC7F;
 $info: #A1A1A1;
 $warning: #C6A41C;
@@ -25,7 +25,18 @@ $border-radius: 0.5rem;
   max-width: 1024px; 
   filter: drop-shadow(0px 0px 15px #dadadaff);
 }
-
-.versionText {
+.oblique {
+	color: #212529;
+  transition-duration: 0.2s;
+  text-shadow:
+    0 1px 0 hsl(0, 0%, 52%),
+	  0 4px 0 hsl(0, 0%, 74%);
+}
+.oblique-secondary {
+  text-shadow:
+    0 1px 0 hsl(0, 0%, 80%),
+	  0 3px 0 hsl(0, 0%, 75%);
+}
+.version-text {
   color: #e3e3e3;
 }

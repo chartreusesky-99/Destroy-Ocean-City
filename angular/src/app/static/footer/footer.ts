@@ -11,12 +11,12 @@ import { version } from '../../../../package.json';
       <hr>
       <div class="d-flex flex-wrap justify-content-between align-items-center">
         <div class="col-md-4 d-flex justify-content-start">
-          <span class="mb-3 mb-md-0 text-body-secondary cursor-default">
+          <p class="mb-3 mb-md-0 text-body-secondary cursor-default">
             © {{currentYear}} Shadow Government Holdings, LLC
-          </span>
+          </p>
         </div>
         <div class="col-md-4 d-flex align-items-center justify-content-end">
-          <small class="m-0 versionText cursor-default font-monospace">
+          <small class="m-0 version-text cursor-default monospace">
             {{versionString}}&nbsp;
           </small>
           <a href="javascript(0):void" [routerLink]="['/privacy']" style="text-decoration: none;">

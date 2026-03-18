@@ -3,9 +3,15 @@
   <app-postViewer [post]="isolatedPost"></app-postViewer>
 } @else {
   <!-- Promoted Posts List -->
-  <h1 class="cursor-default">
+  <h1 class="cursor-default oblique">
     See what our Experts have to Say:
   </h1>
+  <div class="row">
+    <div class="col-12 mb-2">
+      <a><i class="bi bi-filter-square"></i>&nbsp;Most Recent - Oldest</a>
+      <span class="badge rounded-pill text-bg-light">Author: Gigi Santana</span>
+    </div>
+  </div>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     @for (post of posts(); track post.id) {
       <div class="col">

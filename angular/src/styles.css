@@ -1,6 +1,13 @@
-body {
-    font-family: "PT Sans Caption", sans-serif;
-    font-weight: 400;
+p {
+    font-family: "Barlow", sans-serif;
+  	font-weight: 400;
+  	font-style: normal;
+}
+
+a {
+    font-family: "Barlow", sans-serif;
+  	font-weight: 600;
+  	font-style: normal;
 }
 
 h1,h2 {
@@ -8,85 +15,131 @@ h1,h2 {
     font-weight: 400;
 }
 h3,h4,h5,h6 {
-    font-family: "PT Sans Caption", sans-serif;
-    font-weight: 700;
+	font-family: "Barlow", sans-serif;
+  	font-weight: 700;
+  	font-style: normal;
 }
 
-.cursor-pointer {
-	cursor: pointer;
+small {
+	font-family: "Space Grotesk", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 300;
+	font-style: normal;
 }
 
-.cursor-default {
-	cursor: default;
+.monospace {
+	font-family: "Space Grotesk", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 300;
+	font-style: normal;
 }
+
+.cursor-pointer { cursor: pointer; }
+.cursor-default { cursor: default; }
 
 .destroyOceanCityLogo {
-    color: white;
     font-family: "Bowlby One", sans-serif;
     margin-right: 25px;
     text-decoration: none;
     text-transform: uppercase;
     cursor: pointer;
-    text-shadow:
-        0 1px 0 hsl(174,5%,80%),
-	    0 2px 0 hsl(174,5%,75%),
-	    0 3px 0 hsl(174,5%,70%),
-	    0 4px 0 hsl(174,5%,66%),
-	    0 5px 0 hsl(174,5%,64%),
-	    0 6px 0 hsl(174,5%,62%),
-	    0 7px 0 hsl(174,5%,61%),
-	    0 8px 0 hsl(174,5%,60%),
-	    0 0 5px rgba(0,0,0,.05),
-	    0 1px 3px rgba(0,0,0,.2),
-	    0 3px 5px rgba(0,0,0,.2),
-	    0 5px 10px rgba(0,0,0,.2),
-	    0 10px 10px rgba(0,0,0,.2),
-	    0 20px 20px rgba(0,0,0,.3);
+	filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.75));
 }
-
 .destroy {
-    color: #E05252;
+    color: #ff5252;
+	transition-duration: 0.5s;
     text-shadow:
-        0 1px 0 hsl(0, 25%, 48%),
-	    0 2px 0 hsl(0, 25%, 54%),
-	    0 3px 0 hsl(0, 25%, 50%),
-	    0 4px 0 hsl(0, 25%, 46%),
-	    0 5px 0 hsl(0, 20%, 42%),
-	    0 6px 0 hsl(0, 15%, 38%),
-	    0 7px 0 hsl(0, 10%, 34%),
-	    0 8px 0 hsl(0, 5%, 30%);
+        0 1px 0 hsl(0, 90%, 58%),
+	    0 2px 0 hsl(0, 75%, 54%),
+	    0 3px 0 hsl(0, 60%, 50%),
+	    0 4px 0 hsl(0, 45%, 46%),
+	    0 5px 0 hsl(0, 40%, 42%),
+	    0 6px 0 hsl(0, 35%, 38%),
+	    0 7px 0 hsl(0, 30%, 34%),
+	    0 8px 0 hsl(0, 25%, 30%);
 }
-
+.ocean-city {
+	color: #f0f0f0;
+	transition-duration: 0.5s;
+	text-shadow:
+        0 1px 0 hsl(0, 0%, 58%),
+	    0 2px 0 hsl(0, 0%, 54%),
+	    0 3px 0 hsl(0, 0%, 50%),
+	    0 4px 0 hsl(0, 0%, 46%),
+	    0 5px 0 hsl(0, 0%, 42%),
+	    0 6px 0 hsl(0, 0%, 38%),
+	    0 7px 0 hsl(0, 0%, 34%),
+	    0 8px 0 hsl(0, 0%, 30%);
+}
+.destroyOceanCityLogo:hover .destroy { 
+	color: #f0f0f0;
+	filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.75));
+	text-shadow:
+        0 1px 0 hsl(0, 0%, 58%),
+	    0 2px 0 hsl(0, 0%, 54%),
+	    0 3px 0 hsl(0, 0%, 50%),
+	    0 4px 0 hsl(0, 0%, 46%),
+	    0 5px 0 hsl(0, 0%, 42%),
+	    0 6px 0 hsl(0, 0%, 38%),
+	    0 7px 0 hsl(0, 0%, 34%),
+	    0 8px 0 hsl(0, 0%, 30%);
+}
+.destroyOceanCityLogo:hover .ocean-city {
+	color: #FF5252;
+	filter: drop-shadow(0px 0px 10px rgba(255, 57, 57, 0.75));
+	text-shadow:
+        0 1px 0 hsl(0, 90%, 58%),
+	    0 2px 0 hsl(0, 75%, 54%),
+	    0 3px 0 hsl(0, 60%, 50%),
+	    0 4px 0 hsl(0, 45%, 46%),
+	    0 5px 0 hsl(0, 40%, 42%),
+	    0 6px 0 hsl(0, 35%, 38%),
+	    0 7px 0 hsl(0, 30%, 34%),
+	    0 8px 0 hsl(0, 25%, 30%);
+}
+.destroyOceanCityLogo:active {
+	color: #000000 !important;
+}
 .themeToggleMenu {
 	position: absolute;
 	inset: 0px auto auto 0px;
 	margin: 0px;
 	transform: translate3d(-130px, 10px, 0px);
 }
-
 .previewer-image-crop {
 	overflow: hidden;
 	max-height: 225px;
 }
-
 .alert-container {
     margin: 1rem 0;
 }
-
 .alert {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
 button {
     background: transparent;
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
 }
-
 .alert.success { background-color: #2e7d32; }
 .alert.error { background-color: #c62828; }
 .alert.warning { background-color: #ed6c02; }
 .alert.info { background-color: #0277bd; }
+.dropdown-item {
+	transition-duration: 0.2s;
+}
+.dropdown-highlight-light:hover {
+	color: #212529 !important;
+	background-color: #ffffff !important;
+}
+.dropdown-highlight-dark:hover {
+	color: #F8F9FA !important;
+	background-color: #000000 !important;
+}
+.dropdown-highlight:hover {
+	color: #ffffff !important;
+	background-color: #E05252 !important;
+}

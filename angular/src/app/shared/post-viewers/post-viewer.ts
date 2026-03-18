@@ -24,7 +24,7 @@ import { post } from '../../models/post-model';
       </div>
       <div class="card-footer px-sm-2 px-md-5 pb-sm-2 pb-md-5">
         <div class="d-sm-none d-md-flex mt-4 justify-content-center cursor-default w-100">
-          See more from&nbsp;<span routerLink="/blog/author/{{ this.identity.authorName(post).trimEnd() }}" class="link-primary cursor-pointer">{{ this.identity.authorName(post).trimEnd() }}</span>, or&nbsp;<span class="link-primary cursor-pointer" routerLink="/blog">See More Posts</span>.
+          See more from&nbsp;<span routerLink="/blog/" [queryParams]="{ a: this.identity.authorName(post).trimEnd() }" class="link-primary cursor-pointer">{{ this.identity.authorName(post).trimEnd() }}</span>, or&nbsp;<span class="link-primary cursor-pointer" routerLink="/blog">See More Posts</span>.
         </div>
         <app-commentViewer [postId]="post!.id"></app-commentViewer>
       </div>
