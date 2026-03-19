@@ -7,6 +7,7 @@ type ThemeSetting = 'auto' | 'forceLight' | 'forceDark';
 export class ThemeService {
     currentTheme = signal <Theme> ('light');
     currentThemeSetting = signal <ThemeSetting> ('auto');
+    private buildToken = this.detectBuildToken();
 
     private mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -69,9 +70,19 @@ export class ThemeService {
 
         }
 
-        link.href = theme === 'light' ? 'theme-light.css' : 'theme-dark.css';
+        const themeFile = theme === 'light' ? 'theme-light.css' : 'theme-dark.css';
+        const cacheSuffix = this.buildToken ? `?v=${this.buildToken}` : '';
+        link.href = new URL(`${themeFile}${cacheSuffix}`, document.baseURI).toString();
         this.currentTheme.set(theme);
         
+    }
+
+    private detectBuildToken(): string {
+        const mainScript = document.querySelector('script[src*="main-"]') as HTMLScriptElement | null;
+        const src = mainScript?.getAttribute('src') || '';
+        const match = src.match(/main-([A-Za-z0-9]+)\.js/);
+
+        return match?.[1] || '';
     }
 
 }
