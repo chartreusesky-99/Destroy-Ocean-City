@@ -20,6 +20,12 @@ h3,h4,h5,h6 {
   	font-style: normal;
 }
 
+li {
+	font-family: "Barlow", sans-serif;
+  	font-weight: 400;
+  	font-style: normal;
+}
+
 small {
 	font-family: "Space Grotesk", sans-serif;
 	font-optical-sizing: auto;
@@ -149,4 +155,7 @@ button {
 }
 .close-rotate:hover {
 	transform: rotate(90deg);
+}
+.photo {
+	border-radius: 45%;
 }

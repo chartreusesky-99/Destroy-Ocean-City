@@ -10,33 +10,12 @@ import { post } from '../../models/post-model';
   imports: [ RouterLink, NgClass ],
   template: `
     @if (this.featured.image(post); as featuredImage) {
-      <div
-        class="cursor-pointer featured-image-wrap"
-        [ngClass]="cropFeaturedImage ? 'previewer-image-crop' : ''"
-        [class.image-loading]="!isImageLoaded(post.id, featuredImage)"
-        [routerLink]="['/blog/', post.id]"
-      >
-        <img
-          [src]="featuredImage"
-          class="card-img-top featured-image"
-          [class.image-loaded]="isImageLoaded(post.id, featuredImage)"
-          (load)="onImageLoad(post.id, featuredImage)"
-          alt="Featured image"
-        >
+      <div class="cursor-pointer featured-image-wrap" [ngClass]="cropFeaturedImage ? 'previewer-image-crop' : ''" [class.image-loading]="!isImageLoaded(post.id, featuredImage)" [routerLink]="['/blog/', post.id]">
+        <img [src]="featuredImage" class="card-img-top featured-image" [class.image-loaded]="isImageLoaded(post.id, featuredImage)" (load)="onImageLoad(post.id, featuredImage)" alt="Featured image">
       </div>
     } @else if (cropFeaturedImage) {
-      <div
-        class="cursor-pointer previewer-image-crop featured-image-wrap"
-        [class.image-loading]="!isImageLoaded(post.id, fallbackImage(post.id))"
-        [routerLink]="['/blog/', post.id]"
-      >
-        <img
-          [src]="fallbackImage(post.id)"
-          class="card-img-top featured-image"
-          [class.image-loaded]="isImageLoaded(post.id, fallbackImage(post.id))"
-          (load)="onImageLoad(post.id, fallbackImage(post.id))"
-          alt="Featured image"
-        >
+      <div class="cursor-pointer previewer-image-crop featured-image-wrap" [class.image-loading]="!isImageLoaded(post.id, fallbackImage(post.id))" [routerLink]="['/blog/', post.id]">
+        <img [src]="fallbackImage(post.id)" class="card-img-top featured-image" [class.image-loaded]="isImageLoaded(post.id, fallbackImage(post.id))" (load)="onImageLoad(post.id, fallbackImage(post.id))" alt="Featured image">
       </div>
     }
     <div class="card-body">
@@ -46,10 +25,12 @@ import { post } from '../../models/post-model';
       <blockquote class="blockquote mb-0">
         <p class="cursor-default" [innerHTML]="post.excerpt.rendered"></p>
         <footer class="blockquote-footer cursor-default mt-4">
-          @if (this.identity.authorAvatar(post)) {
-            <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="rounded-circle" width="48" height="48">
-          }
-          {{ this.identity.authorName(post) }}
+          <h5>
+            @if (this.identity.authorAvatar(post)) {
+              <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="rounded-circle" width="48" height="48">
+            }
+            {{ this.identity.authorName(post) }}
+          </h5>
         </footer>
       </blockquote>
     </div>

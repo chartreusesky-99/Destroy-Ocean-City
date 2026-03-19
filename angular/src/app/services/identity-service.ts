@@ -5,7 +5,7 @@ import { post } from '../models/post-model';
 export class IdentityService {
 
     authorAvatar(post: post): string | null {
-        return post._embedded?.author?.[0]?.avatar_urls?.['48'] || null;
+        return post._embedded?.author?.[0]?.avatar_urls?.['96'] || null;
 
     }
 

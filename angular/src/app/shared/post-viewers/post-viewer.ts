@@ -3,44 +3,55 @@ import { RouterLink } from '@angular/router';
 import { FeaturedImageService } from '../../services/featuredImage-service';
 import { IdentityService } from '../../services/identity-service';
 import { CommentViewer } from '../comment-viewer';
+import { OrdinalDatePipe } from '../ordinal-date.pipe';
 import { post } from '../../models/post-model';
 
 @Component({
   selector: 'app-postViewer',
-  imports: [ CommentViewer, RouterLink ],
+  imports: [ CommentViewer, RouterLink, OrdinalDatePipe ],
   template: `
     <div class="card paper px-0 mb-4 mx-auto">
       <div class="card-body p-sm-2 p-md-5">
         <h1 [innerHTML]="post!.title.rendered" class="oblique cursor-default"></h1>
-
+        <h5 class="text-primary">
+          Posted on {{ post.date | ordinalDate:'EEEE, MMMM d' }}
+        </h5>
         @if (featuredImageSrc(); as featuredImage) {
           <figure class="post-featured-image-wrap">
-            <button
-              type="button"
-              class="post-featured-image-button cursor-pointer"
-              (click)="openLightbox(featuredImage)"
-              aria-label="Open featured image in lightbox"
-            >
+            <button type="button" class="post-featured-image-button cursor-pointer" (click)="openLightbox(featuredImage)" aria-label="Open featured image in lightbox">
               <img [src]="featuredImage" class="post-featured-image" alt="Featured image for this post" loading="lazy">
-              <span class="post-featured-image-hint">View full image</span>
+              <span class="post-featured-image-hint monospace">
+                View image
+              </span>
             </button>
           </figure>
         }
-
         <blockquote class="blockquote float-right cursor-default mb-0">
           <section class="text-muted text-center my-4">
-            @if (this.identity.authorAvatar(post)) {
-              <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="rounded-circle" width="48" height="48">
-            }
-            {{ this.identity.authorName(post) }}, Contributor
+            <h5>
+              @if (this.identity.authorAvatar(post)) {
+                <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="author-avatar">
+              }
+              &nbsp;{{this.identity.authorName(post)}}, Contributor
+            </h5>
           </section>
         </blockquote>
         <div [innerHTML]="post!.content.rendered"></div>
+        <div class="d-flex justify-content-end">
+          <small class="badge bg-light text-dark cursor-default">
+            {{'#' + 'Promoted'}}
+          </small>
+        </div>
       </div>
       <div class="card-footer px-sm-2 px-md-5 pb-sm-2 pb-md-5">
         <div class="d-sm-none d-md-flex mt-4 justify-content-center cursor-default w-100">
           <p>
-            See more from&nbsp;<span routerLink="/blog/" [queryParams]="{ a: this.identity.authorName(post) }" class="link-primary cursor-pointer">{{ this.identity.authorName(post).trimEnd() }}</span>, or&nbsp;<span class="link-primary cursor-pointer" routerLink="/blog">See More Posts</span>.
+            See more from&nbsp;
+            <span routerLink="/blog/" [queryParams]="{ a: this.identity.authorName(post) }" class="link-primary cursor-pointer">
+              @if (this.identity.authorAvatar(post)) {
+                <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="author-avatar-button">&nbsp;
+              }
+              {{ this.identity.authorName(post).trimEnd() }}</span>, or&nbsp;<span class="link-primary cursor-pointer" routerLink="/blog">See More Posts</span>
           </p>
         </div>
         <app-commentViewer [postId]="post!.id"></app-commentViewer>
@@ -61,6 +72,24 @@ import { post } from '../../models/post-model';
   styles: [`
     :host {
       --app-radius: 0.5rem;
+    }
+
+    .author-avatar {
+      height: 80px;
+      width: auto;
+      border-radius: 45%;
+      filter: brightness(110%);
+    }
+
+    .author-avatar-button {
+      height: 32px;
+      width: auto;
+      border-radius: 45%;
+      transition-duration: 0.2s;
+    }
+
+    .link-primary:hover .author-avatar-button{
+      filter: brightness(125%);
     }
 
     .post-featured-image-wrap {
