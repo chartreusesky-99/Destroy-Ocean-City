@@ -1,5 +1,6 @@
 export interface post {
   id: number;
+  slug: string;
   title: { rendered: string };
   excerpt: { rendered: string };
   content: { rendered: string };
@@ -9,8 +10,9 @@ export interface post {
     author?: {
       id: number;
       name: string;
-      avatar_urls: { [size: string]: string };
+      avatar_url: string;
+      tier: string;
     }[];
-    'wp:featuredmedia'?: { source_url: string }[];
+    'media'?: { source_url: string }[];
   };
 }

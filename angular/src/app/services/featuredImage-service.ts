@@ -13,7 +13,7 @@ export class FeaturedImageService {
     }
 
     image(post: post): string | null {
-        return post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null;
+        return post._embedded?.['media']?.[0]?.source_url || null;
 
     }
 

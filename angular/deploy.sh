@@ -34,6 +34,7 @@ git worktree add -B "$BRANCH" "$DEPLOY_DIR" "origin/$BRANCH" || \
 git worktree add -B "$BRANCH" "$DEPLOY_DIR"
 
 echo "Copying build output to deployment directory..."
+sudo chown -R $(whoami) "$DEPLOY_DIR" 2>/dev/null || true
 rm -rf "$DEPLOY_DIR"/*
 cp -r "dist/$APP_NAME/"* "$DEPLOY_DIR/"
 

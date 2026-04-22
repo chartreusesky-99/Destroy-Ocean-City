@@ -27,7 +27,7 @@
   border: 0;
   background: transparent;
   padding: 0;
-  color: #E05252;
+  color: var(--bs-primary);
   line-height: inherit;
   cursor: pointer;
 }
@@ -56,7 +56,7 @@
 .single-post-loading-link,
 .single-post-loading-comment-title,
 .single-post-loading-comment {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--doc-skeleton-bg);
   border-radius: 0.45rem;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .single-post-loading-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--doc-skeleton-bg);
 }
 
 .single-post-loading-link {
@@ -146,12 +146,12 @@
 }
 
 .skeleton-card {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--doc-skeleton-bg);
 }
 
 .skeleton-image {
   height: 11rem;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--doc-skeleton-bg);
 }
 
 .skeleton-card-tall .skeleton-image {
@@ -166,7 +166,7 @@
   height: 0.9rem;
   border-radius: 0.4rem;
   margin-bottom: 0.7rem;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--doc-skeleton-bg);
 }
 
 .skeleton-title {
@@ -184,7 +184,7 @@
   width: 45%;
   border-radius: 999px;
   margin-top: 1.3rem;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--doc-skeleton-bg);
 }
 
 .shimmer {
@@ -200,9 +200,7 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.17) 45%,
-    rgba(255, 255, 255, 0.24) 50%,
-    rgba(255, 255, 255, 0.17) 55%,
+    var(--doc-shimmer-peak) 50%,
     transparent 100%
   );
   animation: shimmer-move 1.45s linear infinite;

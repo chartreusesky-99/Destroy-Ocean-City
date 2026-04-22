@@ -82,14 +82,14 @@ export class Blog implements AfterViewInit, OnDestroy {
   }
 
   getPosts(): void {
-    const id = Number(this.route.snapshot.paramMap.get('contentId'));
-    const authorName = this.route.snapshot.queryParamMap.get('a')?.trim();
+    const slug = this.route.snapshot.paramMap.get('slug');
+    const authorName = this.route.snapshot.paramMap.get('authorName')?.trim();
 
-    if (id) {
+    if (slug) {
       this.isLoadingSinglePost.set(true);
       this.isLoadingPosts.set(false);
       this.post.set(null);
-      this.api.getPostById(id).subscribe({
+      this.api.getPostBySlug(slug).subscribe({
         next: ({ post, comments }) => {
           this.post.set(post);
           this.comments.set(comments);
@@ -106,11 +106,15 @@ export class Blog implements AfterViewInit, OnDestroy {
       this.isLoadingSinglePost.set(false);
       this.post.set(null);
       this.isLoadingPosts.set(true);
-      this.heading = `See what ${'<span class="oblique-author">' + authorName + '</span>'} has to Say:`;
       this.isolation = {type: 'author', value: authorName};
       this.api.getPostsByAuthorName(authorName).subscribe({
         next: (posts) => {
           this.posts.set(this.sortPostsByDate(posts));
+          if (posts.length > 0) {
+            const displayName = this.identity.authorName(posts[0]);
+            this.isolation = {type: 'author', value: displayName};
+            this.heading = `See what <span class="oblique-author">${displayName}</span> has to Say:`;
+          }
           this.scheduleMasonryLayout();
         },
         error: () => {
@@ -149,30 +153,7 @@ export class Blog implements AfterViewInit, OnDestroy {
     if (!this.isolation) {
       return;
     }
-
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { a: null },
-      queryParamsHandling: 'merge'
-    });
-
-    this.isolation = null;
-    this.heading = this.defaultHeading;
-    this.isLoadingPosts.set(true);
-
-    const promotedTagId = 123;
-    this.api.getPosts(promotedTagId).subscribe({
-      next: (posts) => {
-        this.posts.set(this.sortPostsByDate(posts));
-        this.scheduleMasonryLayout();
-      },
-      error: () => {
-        this.isLoadingPosts.set(false);
-      },
-      complete: () => {
-        this.isLoadingPosts.set(false);
-      }
-    });
+    this.router.navigate(['/blog']);
   }
 
   toggleSortOrder(): void {

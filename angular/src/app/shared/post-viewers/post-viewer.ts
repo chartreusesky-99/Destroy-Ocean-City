@@ -32,7 +32,7 @@ import { post } from '../../models/post-model';
               @if (this.identity.authorAvatar(post)) {
                 <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="author-avatar">
               }
-              &nbsp;{{this.identity.authorName(post)}}, Contributor
+              &nbsp;{{this.identity.authorName(post)}}, {{this.identity.authorTier(post)}}
             </h5>
           </section>
         </blockquote>
@@ -47,7 +47,7 @@ import { post } from '../../models/post-model';
         <div class="d-sm-none d-md-flex mt-4 justify-content-center cursor-default w-100">
           <p>
             See more from&nbsp;
-            <span routerLink="/blog/" [queryParams]="{ a: this.identity.authorName(post) }" class="link-primary cursor-pointer">
+            <span [routerLink]="['/blog/author', identity.slugifyName(identity.authorName(post))]" class="link-primary cursor-pointer">
               @if (this.identity.authorAvatar(post)) {
                 <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="author-avatar-button">&nbsp;
               }

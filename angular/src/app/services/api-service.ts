@@ -5,38 +5,50 @@ import { map } from 'rxjs/operators';
 import { AlertService } from './alert-service';
 import { post } from '../models/post-model';
 import { postComment } from '../models/postComment-model';
+import { hero } from '../models/hero-model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
 
-  private baseUrl = 'https://destroyoceancity.app/wp-json/wp/v2';
-  private promotedId = 3;
+  private baseUrl = 'https://api.destroyocean.city/json';
+  private promotedId = 14;
+  private unpromotedId = 1;
+  private promotedBlogId = 2;
+  private promotedContentId = 13;
+  private promotedHeroId = 4;
+  private promotedUiId = 3;
 
-  constructor(private http: HttpClient, private alertService: AlertService) {}
+  constructor(private http: HttpClient, private alertService: AlertService) { }
+
+  getContentBySlug(slug: string) {
+    return null;
+  }
 
   getPosts(tagId: number): Observable<post[]> {
     return this.http
-      .get<post[]>(`${this.baseUrl}/posts?categories=${this.promotedId}&_embed`)
+      .get<post[]>(`${this.baseUrl}/posts?categories=${this.promotedBlogId}&per_page=100&_embed`)
       .pipe(
         map(posts => posts || []),
         catchError(err => this.handleError(err, `fetching posts for Promoted tag ${tagId}.`))
       );
   }
 
-  getPostById(id: number): Observable<{ post: post, comments: postComment[] }> {
+  getPostBySlug(slug: string): Observable<{ post: post, comments: postComment[] }> {
     return this.http
-      .get<post>(`${this.baseUrl}/posts/${id}?_embed`)
-      .pipe(switchMap(postData => this.http.get<postComment[]>(`${this.baseUrl}/comments?post=${id}&_embed`)
-        .pipe(map(comments => ({ post: postData, comments }))
-      )
-    ),
-    catchError(err => this.handleError(err, `loading post with ID ${id}.`))
-    );
+      .get<post[]>(`${this.baseUrl}/posts?slug=${slug}&_embed`)
+      .pipe(
+        switchMap(posts => {
+          const postData = posts[0];
+          return this.http.get<postComment[]>(`${this.baseUrl}/comments?post=${postData.id}&_embed`)
+            .pipe(map(comments => ({ post: postData, comments })));
+        }),
+        catchError(err => this.handleError(err, `loading post with slug ${slug}.`))
+      );
   }
 
   getRecentPosts(limit = 3): Observable<post[]> {
     return this.http
-      .get<post[]>(`${this.baseUrl}/posts?per_page=${limit}&categories=${this.promotedId}&_embed`)
+      .get<post[]>(`${this.baseUrl}/posts?per_page=${limit}&categories=${this.promotedBlogId}&_embed`)
       .pipe(
         map(posts => posts || []),
         catchError(err => this.handleError(err, 'fetching recent posts.'))
@@ -49,16 +61,16 @@ export class ApiService {
       .pipe(
         map(posts => posts || []),
         catchError(err => this.handleError(err, `fetching comments for post ID ${postId}.`))
-    );
+      );
   }
 
   getPostsByAuthorID(authorId: number): Observable<post[]> {
     return this.http
-      .get<post[]>(`${this.baseUrl}/posts?author=${authorId}&categories=${this.promotedId}&_embed`)
+      .get<post[]>(`${this.baseUrl}/posts?author=${authorId}&categories=${this.promotedBlogId}&per_page=100&_embed`)
       .pipe(
         map(posts => posts || []),
         catchError(err => this.handleError(err, `fetching posts from author with ID ${authorId}.`))
-    );
+      );
   }
 
   getPostsByAuthorName(name: string): Observable<post[]> {
@@ -70,13 +82,41 @@ export class ApiService {
     );
   }
 
-  getAuthorByName(name: string): Observable<any> {
+  getAuthorByName(nameOrSlug: string): Observable<any> {
+    const slug = nameOrSlug.toLowerCase().replace(/\s+/g, '-');
     return this.http
       .get<any[]>(`${this.baseUrl}/users?per_page=100`)
       .pipe(
-        map(users => users.find(u => u.name.toLowerCase() === name.toLowerCase()) || null),
-        catchError(err => this.handleError(err, `fetching author with name ${name}.`))
-    );
+        map(users => users.find(u => u.name.toLowerCase().replace(/\s+/g, '-') === slug) || null),
+        catchError(err => this.handleError(err, `fetching author with slug ${nameOrSlug}.`))
+      );
+  }
+
+  private heroId = 4; // Promoted Hero Profile category ID
+
+  getHeroes(): Observable<hero[]> {
+    return this.http
+      .get<any[]>(`${this.baseUrl}/posts?categories=${this.promotedHeroId}&_embed`)
+      .pipe(
+        map(posts => posts
+          .map(post => ({
+            id: post.id,
+            slug: post.slug,
+            name: post.title?.rendered ?? '',
+            tier: post.acf?.hero_tier ?? '',
+            excerpt: post.content?.rendered ?? '',
+            order: post.acf?.hero_order ?? 0,
+            facts: [
+              post.acf?.hero_fact_1 ?? '',
+              post.acf?.hero_fact_2 ?? '',
+              post.acf?.hero_fact_3 ?? '',
+            ].filter(f => f !== ''),
+            media: post._embedded?.['media']?.[0] ?? {},
+          } as hero))
+          .sort((a, b) => a.order - b.order)
+        ),
+        catchError(err => this.handleError(err, 'fetching heroes.'))
+      );
   }
 
   private handleError(error: any, context: string) {
