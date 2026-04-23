@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 // Views Import
 import { Landing } from './views/landing/landing';
+import { Content } from './views/content/content';
 import { Blog } from './views/blog/blog';
 import { Store } from './views/store/store';
 import { Team } from './views/team/team';
@@ -11,7 +12,7 @@ import { NotFound } from './views/not-found/not-found';
 
 export const routes: Routes = [
   { path: '', component: Landing },
-  { path: 'content/:contentSlug', component: NotFound},
+  { path: 'content/:contentSlug', component: Content},
   { path: 'blog', component: Blog },
   { path: 'blog/author/:authorName', component: Blog},
   { path: 'blog/:slug', component: Blog},

@@ -20,10 +20,6 @@ export class ApiService {
 
   constructor(private http: HttpClient, private alertService: AlertService) { }
 
-  getContentBySlug(slug: string) {
-    return null;
-  }
-
   getPosts(tagId: number): Observable<post[]> {
     return this.http
       .get<post[]>(`${this.baseUrl}/posts?categories=${this.promotedBlogId}&per_page=100&_embed`)
@@ -92,7 +88,9 @@ export class ApiService {
       );
   }
 
-  private heroId = 4; // Promoted Hero Profile category ID
+  getContentBySlug(slug: string): Observable<post[]> {
+    return this.http.get<post[]>(`${this.baseUrl}/posts?slug=${slug}&categories=${this.promotedContentId}&_embed`);
+  }
 
   getHeroes(): Observable<hero[]> {
     return this.http

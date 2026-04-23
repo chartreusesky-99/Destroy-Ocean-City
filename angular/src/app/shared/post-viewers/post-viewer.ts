@@ -26,16 +26,18 @@ import { post } from '../../models/post-model';
             </button>
           </figure>
         }
-        <blockquote class="blockquote float-right cursor-default mb-0">
-          <section class="text-muted text-center my-4">
-            <h5>
-              @if (this.identity.authorAvatar(post)) {
-                <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="author-avatar">
-              }
-              &nbsp;{{this.identity.authorName(post)}}, {{this.identity.authorTier(post)}}
-            </h5>
-          </section>
-        </blockquote>
+        @if (showAuthorHeader) {
+          <blockquote class="blockquote float-right cursor-default mb-0">
+            <section class="text-muted text-center my-4">
+              <h5>
+                @if (this.identity.authorAvatar(post)) {
+                  <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="author-avatar">
+                }
+                &nbsp;{{this.identity.authorName(post)}}, {{this.identity.authorTier(post)}}
+              </h5>
+            </section>
+          </blockquote>
+        }
         <div [innerHTML]="post!.content.rendered"></div>
         <div class="d-flex justify-content-end">
           <small class="badge bg-light text-dark cursor-default">
@@ -44,17 +46,21 @@ import { post } from '../../models/post-model';
         </div>
       </div>
       <div class="card-footer px-sm-2 px-md-5 pb-sm-2 pb-md-5">
-        <div class="d-sm-none d-md-flex mt-4 justify-content-center cursor-default w-100">
-          <p>
-            See more from&nbsp;
-            <span [routerLink]="['/blog/author', identity.slugifyName(identity.authorName(post))]" class="link-primary cursor-pointer">
-              @if (this.identity.authorAvatar(post)) {
-                <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="author-avatar-button">&nbsp;
-              }
-              {{ this.identity.authorName(post).trimEnd() }}</span>, or&nbsp;<span class="link-primary cursor-pointer" routerLink="/blog">See More Posts</span>
-          </p>
-        </div>
-        <app-commentViewer [postId]="post!.id"></app-commentViewer>
+        @if (showAuthorFooter) {
+          <div class="d-sm-none d-md-flex mt-4 justify-content-center cursor-default w-100">
+            <p>
+              See more from&nbsp;
+              <span [routerLink]="['/blog/author', identity.slugifyName(identity.authorName(post))]" class="link-primary cursor-pointer">
+                @if (this.identity.authorAvatar(post)) {
+                  <img [src]="this.identity.authorAvatar(post)" alt="Author avatar" class="author-avatar-button">&nbsp;
+                }
+                {{ this.identity.authorName(post).trimEnd() }}</span>, or&nbsp;<span class="link-primary cursor-pointer" routerLink="/blog">See More Posts</span>
+            </p>
+          </div>
+        }
+        @if (showComments) {
+          <app-commentViewer [postId]="post!.id"></app-commentViewer>
+        }
       </div>
     </div>
 
@@ -200,6 +206,9 @@ import { post } from '../../models/post-model';
 })
 export class PostViewer implements OnDestroy {
   @Input() post!: post;
+  @Input() showAuthorHeader = true;
+  @Input() showAuthorFooter = true;
+  @Input() showComments = true;
   lightboxImageSrc = signal<string | null>(null);
   private priorBodyOverflow = '';
 
