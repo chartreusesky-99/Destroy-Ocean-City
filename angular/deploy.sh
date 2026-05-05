@@ -23,8 +23,8 @@ echo "Ensuring deployment worktree exists..."
 git worktree prune || true
 
 # Remove conflicting worktree if exists
-if git worktree list | grep -q " $BRANCH$"; then
-    STALE_PATH=$(git worktree list | grep " $BRANCH$" | awk '{print $1}')
+if git worktree list | grep -q "\[$BRANCH\]"; then
+    STALE_PATH=$(git worktree list | grep "\[$BRANCH\]" | awk '{print $1}')
     echo "Removing stale worktree at $STALE_PATH..."
     git worktree remove "$STALE_PATH" --force || true
 fi

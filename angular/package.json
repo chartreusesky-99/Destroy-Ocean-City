@@ -1,6 +1,6 @@
 {
   "name": "destroy-ocean-city",
-  "version": "2.1",
+  "version": "2.2.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -34,6 +34,7 @@
     "rxjs": "~7.8.0",
     "sass": "^1.92.1",
     "tslib": "^2.3.0",
+    "wrangler": "^4.85.0",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {

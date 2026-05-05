@@ -1,0 +1,57 @@
+.content-loading {
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: sk-fade-up 320ms ease-out forwards;
+}
+
+.content-sk-title,
+.content-sk-date,
+.content-sk-line {
+  background: var(--doc-skeleton-bg);
+  border-radius: 0.45rem;
+}
+
+.content-sk-title {
+  height: 2.1rem;
+  width: 75%;
+  margin-bottom: 1.3rem;
+}
+
+.content-sk-date {
+  height: 1rem;
+  width: 40%;
+  margin-bottom: 1.5rem;
+}
+
+.content-sk-lines {
+  margin-top: 0.5rem;
+}
+
+.content-sk-line {
+  height: 1rem;
+  width: 100%;
+  margin-bottom: 0.9rem;
+}
+
+.content-sk-line.short {
+  width: 62%;
+}
+
+.content-sk-line.medium {
+  width: 76%;
+}
+
+@media (max-width: 768px) {
+  .content-sk-title {
+    width: 92%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content-loading {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

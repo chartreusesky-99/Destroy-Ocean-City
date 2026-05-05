@@ -83,6 +83,7 @@ export class ThemeService {
         const match = src.match(/main-([A-Za-z0-9]+)\.js/);
 
         return match?.[1] || '';
+        
     }
 
 }

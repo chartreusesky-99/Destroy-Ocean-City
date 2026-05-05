@@ -1,0 +1,5 @@
+{
+  "name": "destroyoceancity-printful-proxy",
+  "compatibility_date": "2026-04-24",
+  "main": "src/index.ts"
+}

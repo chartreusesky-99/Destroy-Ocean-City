@@ -3,3 +3,11 @@
 # System files
 .DS_Store
 Thumbs.db
+
+# Garbage
+/.claude
+/angular/.angular
+/angular/.vscode
+/products-deploy
+/products-deploy/upload.sh
+.DS_Store

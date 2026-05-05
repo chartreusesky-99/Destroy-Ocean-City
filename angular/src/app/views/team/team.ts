@@ -3,7 +3,8 @@ import { RouterLink } from '@angular/router';
 
 import { ApiService } from '../../services/api-service';
 import { IdentityService } from '../../services/identity-service';
-import { SafeHtmlPipe } from '../../shared/safe-html.pipe';
+import { TitleService } from '../../services/title-service';
+import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { hero } from '../../models/hero-model';
 
 @Component({
@@ -120,7 +121,7 @@ import { hero } from '../../models/hero-model';
     .hero-skeleton-card {
       opacity: 0;
       transform: translateY(10px) scale(0.988);
-      animation: hero-card-settle 380ms cubic-bezier(.2, .7, .2, 1) forwards;
+      animation: sk-settle 380ms cubic-bezier(.2, .7, .2, 1) forwards;
       animation-delay: var(--reveal-delay, 0ms);
       border: 1px solid var(--doc-skeleton-bg);
     }
@@ -170,32 +171,8 @@ import { hero } from '../../models/hero-model';
     .hero-card-reveal {
       opacity: 0;
       transform: translateY(10px) scale(0.988);
-      animation: hero-card-settle 420ms cubic-bezier(.2, .7, .2, 1) forwards;
+      animation: sk-settle 420ms cubic-bezier(.2, .7, .2, 1) forwards;
       animation-delay: var(--reveal-delay, 0ms);
-    }
-    /* --- Shimmer sweep --- */
-    .shimmer {
-      position: relative;
-      overflow: hidden;
-    }
-    .shimmer::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      transform: translateX(-100%);
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        var(--doc-shimmer-peak) 50%,
-        transparent 100%
-      );
-      animation: shimmer-move 1.45s linear infinite;
-    }
-    @keyframes hero-card-settle {
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes shimmer-move {
-      to { transform: translateX(100%); }
     }
     @media (prefers-reduced-motion: reduce) {
       .hero-photo, .hero-lightbox-backdrop,
@@ -205,7 +182,6 @@ import { hero } from '../../models/hero-model';
         opacity: 1;
         transform: none;
       }
-      .shimmer::after { animation: none; }
     }
   `
 })
@@ -216,9 +192,10 @@ export class Team implements OnDestroy {
   lightboxImageSrc = signal<string | null>(null);
   private priorBodyOverflow = '';
 
-  constructor(public api: ApiService, public identity: IdentityService) { }
+  constructor(public api: ApiService, public identity: IdentityService, private titleService: TitleService) { }
 
   ngOnInit() {
+    this.titleService.setCustomSiteTitle('Heroes');
     console.log('Team view initialized');
     this.api.getHeroes().subscribe({
       next: heroes => {
@@ -247,6 +224,7 @@ export class Team implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.titleService.resetSiteTitle();
     document.body.style.overflow = this.priorBodyOverflow;
   }
 

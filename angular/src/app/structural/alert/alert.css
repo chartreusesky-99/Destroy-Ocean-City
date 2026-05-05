@@ -1,0 +1,41 @@
+.doc-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 0.9rem;
+    border-left-width: 4px;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.doc-alert-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    opacity: 0.85;
+}
+
+.doc-alert-message {
+    flex: 1;
+    font-family: "Barlow", sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.doc-alert-dismiss {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.1rem 0.2rem;
+    opacity: 0.55;
+    font-size: 0.8rem;
+    color: inherit;
+    flex-shrink: 0;
+    transition: opacity 0.2s ease;
+    line-height: 1;
+}
+
+.doc-alert-dismiss:hover {
+    opacity: 1;
+}

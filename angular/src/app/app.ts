@@ -1,18 +1,38 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-// Static Component Import
-import { Header } from './static/header/header';
-import { AlertComponent } from './static/alert/alert';
-import { Footer } from './static/footer/footer';
-import { Sloganator } from "./static/sloganator/sloganator";
+// Structural Component Import
+import { Header } from './structural/header/header';
+import { AlertComponent } from './structural/alert/alert';
+import { Sloganator } from "./shared/sloganator";
+import { Footer } from './structural/footer/footer';
 
 @Component({
-  selector: 'app-root',
-  imports: [ RouterOutlet, Header, AlertComponent, Footer, Sloganator ],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
-  standalone: true
+  selector: 'doc-root',
+  imports: [ Header, AlertComponent, RouterOutlet, Sloganator, Footer ],
+  standalone: true,
+  template: `
+    <doc-header></doc-header>
+    <div class="container p-md-5 p-sm-1 my-2" style="min-height: 600px;">
+        <alert></alert>
+        <router-outlet></router-outlet>
+    </div>
+    <sloganator></sloganator>
+    <doc-footer></doc-footer>
+  `,
+  styles: `
+    @keyframes vt-fade-in { from { opacity: 0 } to { opacity: 1 } }
+    @keyframes vt-fade-out { from { opacity: 1 } to { opacity: 0 } }
+    /* outgoing view */
+    ::view-transition-old(root) { animation: 120ms ease-out vt-fade-out; }
+    /* incoming view */
+    ::view-transition-new(root) { animation: 160ms ease-in vt-fade-in; }
+    header, app-alert { view-transition-name: none; }
+    .paper {
+      max-width: 1024px;
+      filter: drop-shadow(30px 10px 4px #000000);
+    }
+  `
 })
 export class App {
   protected readonly title = signal('destroyOceanCity');

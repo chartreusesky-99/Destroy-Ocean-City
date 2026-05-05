@@ -10,7 +10,8 @@ import { hero } from '../models/hero-model';
 @Injectable({ providedIn: 'root' })
 export class ApiService {
 
-  private baseUrl = 'https://api.destroyocean.city/json';
+  private backendUrl = 'https://api.destroyocean.city/json';
+  private dropshipUrl = 'https://dropship.destroyocean.city';
   private promotedId = 14;
   private unpromotedId = 1;
   private promotedBlogId = 2;
@@ -22,7 +23,7 @@ export class ApiService {
 
   getPosts(tagId: number): Observable<post[]> {
     return this.http
-      .get<post[]>(`${this.baseUrl}/posts?categories=${this.promotedBlogId}&per_page=100&_embed`)
+      .get<post[]>(`${this.backendUrl}/posts?categories=${this.promotedBlogId}&per_page=100&_embed`)
       .pipe(
         map(posts => posts || []),
         catchError(err => this.handleError(err, `fetching posts for Promoted tag ${tagId}.`))
@@ -31,11 +32,11 @@ export class ApiService {
 
   getPostBySlug(slug: string): Observable<{ post: post, comments: postComment[] }> {
     return this.http
-      .get<post[]>(`${this.baseUrl}/posts?slug=${slug}&_embed`)
+      .get<post[]>(`${this.backendUrl}/posts?slug=${slug}&_embed`)
       .pipe(
         switchMap(posts => {
           const postData = posts[0];
-          return this.http.get<postComment[]>(`${this.baseUrl}/comments?post=${postData.id}&_embed`)
+          return this.http.get<postComment[]>(`${this.backendUrl}/comments?post=${postData.id}&_embed`)
             .pipe(map(comments => ({ post: postData, comments })));
         }),
         catchError(err => this.handleError(err, `loading post with slug ${slug}.`))
@@ -44,7 +45,7 @@ export class ApiService {
 
   getRecentPosts(limit = 3): Observable<post[]> {
     return this.http
-      .get<post[]>(`${this.baseUrl}/posts?per_page=${limit}&categories=${this.promotedBlogId}&_embed`)
+      .get<post[]>(`${this.backendUrl}/posts?per_page=${limit}&categories=${this.promotedBlogId}&_embed`)
       .pipe(
         map(posts => posts || []),
         catchError(err => this.handleError(err, 'fetching recent posts.'))
@@ -53,7 +54,7 @@ export class ApiService {
 
   getCommentsByPostId(postId: number): Observable<postComment[]> {
     return this.http
-      .get<postComment[]>(`${this.baseUrl}/comments?post=${postId}&_embed&orderby=date&order=asc`)
+      .get<postComment[]>(`${this.backendUrl}/comments?post=${postId}&_embed&orderby=date&order=asc`)
       .pipe(
         map(posts => posts || []),
         catchError(err => this.handleError(err, `fetching comments for post ID ${postId}.`))
@@ -62,7 +63,7 @@ export class ApiService {
 
   getPostsByAuthorID(authorId: number): Observable<post[]> {
     return this.http
-      .get<post[]>(`${this.baseUrl}/posts?author=${authorId}&categories=${this.promotedBlogId}&per_page=100&_embed`)
+      .get<post[]>(`${this.backendUrl}/posts?author=${authorId}&categories=${this.promotedBlogId}&per_page=100&_embed`)
       .pipe(
         map(posts => posts || []),
         catchError(err => this.handleError(err, `fetching posts from author with ID ${authorId}.`))
@@ -81,7 +82,7 @@ export class ApiService {
   getAuthorByName(nameOrSlug: string): Observable<any> {
     const slug = nameOrSlug.toLowerCase().replace(/\s+/g, '-');
     return this.http
-      .get<any[]>(`${this.baseUrl}/users?per_page=100`)
+      .get<any[]>(`${this.backendUrl}/users?per_page=100`)
       .pipe(
         map(users => users.find(u => u.name.toLowerCase().replace(/\s+/g, '-') === slug) || null),
         catchError(err => this.handleError(err, `fetching author with slug ${nameOrSlug}.`))
@@ -89,12 +90,12 @@ export class ApiService {
   }
 
   getContentBySlug(slug: string): Observable<post[]> {
-    return this.http.get<post[]>(`${this.baseUrl}/posts?slug=${slug}&categories=${this.promotedContentId}&_embed`);
+    return this.http.get<post[]>(`${this.backendUrl}/posts?slug=${slug}&categories=${this.promotedContentId}&_embed`);
   }
 
   getHeroes(): Observable<hero[]> {
     return this.http
-      .get<any[]>(`${this.baseUrl}/posts?categories=${this.promotedHeroId}&_embed`)
+      .get<any[]>(`${this.backendUrl}/posts?categories=${this.promotedHeroId}&_embed`)
       .pipe(
         map(posts => posts
           .map(post => ({

@@ -1,15 +1,30 @@
 <div class="card paper px-0 mb-4 mx-auto">
     <div class="card-body p-sm-2 p-md-5">
-        <h1 class="oblique cursor-default">
-            Merchandising
-        </h1>
-        <h5 class="text-primary">
-            Our content may be AI slop, but our T-shirts sure ain't!
-        </h5>
+        <div class="d-flex align-items-center mb-1">
+            <h1 class="oblique cursor-default mb-0 flex-grow-1">Merchandising</h1>
+            <store-cart-button></store-cart-button>
+        </div>
+        <store-sloganator></store-sloganator>
         <hr>
-        <p>store-view works!</p>
-        <p class="text-danger alert-danger monospace">
-            routerOutlet: Could not get "Store" component configuration applet. See build error log.
-        </p>
+        <div class="row">
+            @if (isLoading()) {
+                @for (i of skeletonCards; track i; let idx = $index) {
+                    <div class="col-12 col-sm-6 col-lg-4 mb-4">
+                        <div class="card h-100 sk-settle" [style.--reveal-delay]="(idx * 60) + 'ms'">
+                            <div class="store-sk-image shimmer"></div>
+                            <div class="card-body d-flex flex-column">
+                                <div class="sk-line shimmer" style="width: 72%;"></div>
+                                <div class="sk-line shimmer" style="width: 38%;"></div>
+                                <div class="store-sk-btn sk-box shimmer mt-auto"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            } @else {
+                @for (product of products(); track product.id; let idx = $index) {
+                    <product-previewer [product]="product" class="col-12 col-sm-6 col-lg-4 mb-4 sk-settle" [style.--reveal-delay]="(idx * 60) + 'ms'"></product-previewer>
+                }
+            }
+        </div>
     </div>
 </div>

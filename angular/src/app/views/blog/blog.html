@@ -32,7 +32,7 @@
   </article>
 } @else if (post(); as isolatedPost) {
   <!-- Single Post View -->
-  <app-postViewer [post]="isolatedPost"></app-postViewer>
+  <postViewer [post]="isolatedPost"></postViewer>
 } @else {
   <!-- Promoted Posts List -->
   <h1 class="cursor-default oblique blog-heading" [innerHTML]="heading"></h1>
@@ -69,7 +69,7 @@
     } @else {
       @for (post of posts(); track post.id; let i = $index) {
         <div class="post-card card post-reveal" [style.--reveal-delay]="(i * 70) + 'ms'">
-          <app-postPreviewer [post]="post"></app-postPreviewer>
+          <postPreviewer [post]="post"></postPreviewer>
         </div>
       }
     }

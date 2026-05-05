@@ -1,0 +1,118 @@
+<div class="card paper px-0 mb-4 mx-auto" style="filter: none;">
+    <div class="card-body p-sm-2 p-md-5">
+        <div class="d-flex align-items-center mb-1">
+            <a [routerLink]="['/merch']" class="button-store-back">
+                &larr;
+            </a>
+            <h1 class="oblique cursor-default mb-0 flex-grow-1">
+                @if (loading()) {
+                    <span class="sk-box shimmer" style="width: 40%; height: 1.75rem; display: inline-block;"></span>
+                } @else {
+                    {{ product()?.sync_product?.name }}
+                }
+            </h1>
+            <store-cart-button></store-cart-button>
+        </div>
+        <store-sloganator></store-sloganator>
+        <hr>
+
+        @if (loading()) {
+            <div class="row g-4">
+                <div class="col-12 col-md-5">
+                    <div class="pv-sk-image sk-box shimmer"></div>
+                    <div class="d-flex gap-2 mt-3">
+                        <div class="pv-sk-thumb sk-box shimmer"></div>
+                        <div class="pv-sk-thumb sk-box shimmer"></div>
+                        <div class="pv-sk-thumb sk-box shimmer"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 d-flex flex-column">
+                    <div class="sk-line shimmer mb-3" style="width: 55%;"></div>
+                    <div class="mb-3">
+                        <div class="sk-line shimmer"></div>
+                        <div class="sk-line shimmer" style="width: 83%;"></div>
+                        <div class="sk-line shimmer" style="width: 58%;"></div>
+                    </div>
+                    <div class="list-group mb-3">
+                        @for (i of [1, 2, 3, 4]; track i) {
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="sk-box shimmer" style="height: 0.85rem; width: 35%;"></div>
+                                <div class="sk-box shimmer" style="height: 0.85rem; width: 18%;"></div>
+                            </div>
+                        }
+                    </div>
+                    <div class="mt-auto">
+                        <div class="pv-sk-btn sk-box shimmer"></div>
+                    </div>
+                </div>
+            </div>
+        } @else if (product()) {
+
+            <div class="row g-4">
+                <div class="col-12 col-md-5">
+                    <div class="main-image-wrap" [class.fading]="imageFading()">
+                        <product-image
+                            [imageSrc]="mainImageUrl()"
+                            [altText]="product()!.sync_product.name"
+                            (overImage)="isOverProduct = $event"
+                            (imageClick)="lightboxOpen = true"
+                            (loaded)="onProductImageLoaded()">
+                        </product-image>
+                    </div>
+
+                    @if (thumbnailUrls().length > 1) {
+                        <div class="thumb-strip d-flex gap-2 mt-3 flex-wrap">
+                            @for (thumb of thumbnailUrls(); track $index) {
+                                <img
+                                    [src]="thumb"
+                                    [alt]="product()!.sync_product.name"
+                                    [class.active]="selectedAngleIndex() === $index"
+                                    (click)="selectAngle($index)">
+                            }
+                        </div>
+                    }
+                </div>
+
+                <div class="col-12 col-md-7 d-flex flex-column">
+                    <h6 class="cursor-default mb-3">
+                        {{ product()!.sync_product.name }}
+                    </h6>
+                    @if (product()!.sync_product.description) {
+                        <p class="mb-3">{{ product()!.sync_product.description }}</p>
+                    }
+                    <div class="list-group mb-3">
+                        @for (variant of product()!.sync_variants; track variant.id) {
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>
+                                    @if (variant.color) {
+                                        <span class="me-2 text-muted small">{{ variant.color }}</span>
+                                    }
+                                    {{ variant.size }}
+                                </span>
+                                <span class="fw-semibold">
+                                    {{ +variant.retail_price | currency:variant.currency }}
+                                </span>
+                            </div>
+                        }
+                    </div>
+
+                    @if (product()!.sync_product.addendum) {
+                        <p class="text-muted small fst-italic">{{ product()!.sync_product.addendum }}</p>
+                    }
+                    <add-to-cart class="mt-auto" [soldOut]="true"></add-to-cart>
+                </div>
+            </div>
+        } @else {
+            <p class="text-danger">Product not found.</p>
+        }
+
+    </div>
+</div>
+
+@if (lightboxOpen) {
+    <app-lightbox
+        [images]="lightboxImages()"
+        [startIndex]="selectedAngleIndex()"
+        (close)="lightboxOpen = false">
+    </app-lightbox>
+}

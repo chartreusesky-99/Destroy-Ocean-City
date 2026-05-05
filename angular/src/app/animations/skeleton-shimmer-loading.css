@@ -1,0 +1,116 @@
+/* ──────────────────────────────────────────────────────────────
+   Skeleton / loading animation library
+   Reusable primitives and utilities for all loading states.
+   Relies on --doc-skeleton-bg and --doc-shimmer-peak CSS
+   variables, which are set per-theme in bs-custom-*.scss.
+   ────────────────────────────────────────────────────────────── */
+
+@keyframes sk-shimmer   { to { transform: translateX(100%); } }
+@keyframes sk-settle    { to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes sk-fade-up   { to { opacity: 1; transform: translateY(0); } }
+@keyframes sk-img-shell { to { background-position: -200% 0; } }
+
+/* ── Shimmer sweep ─────────────────────────────────────────────
+   Add .shimmer to any skeleton block for the gliding highlight. */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--doc-shimmer-peak) 50%,
+    transparent 100%
+  );
+  animation: sk-shimmer 1.45s linear infinite;
+  pointer-events: none;
+}
+
+/* ── Skeleton shape primitives ─────────────────────────────────
+   Compose these with component-specific size/layout classes.
+   .sk-line   — short text-line placeholder
+   .sk-box    — rectangular block placeholder
+   .sk-circle — circular placeholder (avatar, icon, etc.) */
+.sk-line {
+  height: 0.9rem;
+  border-radius: 0.4rem;
+  margin-bottom: 0.7rem;
+  background: var(--doc-skeleton-bg);
+}
+.sk-box {
+  background: var(--doc-skeleton-bg);
+  border-radius: 0.45rem;
+}
+.sk-circle {
+  border-radius: 999px;
+  background: var(--doc-skeleton-bg);
+}
+
+/* ── Card / item entrance ──────────────────────────────────────
+   Apply .sk-settle to a skeleton card or a revealed content card.
+   Set --reveal-delay (e.g. style="--reveal-delay:120ms") to stagger
+   a sequence of items. */
+.sk-settle {
+  opacity: 0;
+  transform: translateY(12px) scale(0.985);
+  animation: sk-settle 420ms cubic-bezier(.2, .7, .2, 1) forwards;
+  animation-delay: var(--reveal-delay, 0ms);
+  overflow: hidden;
+}
+
+/* ── Container / heading entrance ─────────────────────────────
+   Apply .sk-fade-up to headings or loading containers.
+   Also supports --reveal-delay for offset timing. */
+.sk-fade-up {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: sk-fade-up 380ms ease-out forwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* ── Featured image loading shell ─────────────────────────────
+   Wraps an <img> to show an animated shell while the src loads.
+   Add .image-loading to show the shimmer overlay; swap it for
+   .image-loaded (on the <img>) via (load) to reveal the image. */
+.sk-img-wrap {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.09),
+    rgba(255, 255, 255, 0.03)
+  );
+  background-size: 200% 100%;
+  animation: sk-img-shell 1.6s linear infinite;
+}
+.sk-img-wrap.image-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.12) 50%, transparent 100%);
+  animation: sk-shimmer 1.2s linear infinite;
+  pointer-events: none;
+}
+
+/* ── Accessibility ─────────────────────────────────────────────
+   All motion is disabled for users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .shimmer::after,
+  .sk-img-wrap,
+  .sk-img-wrap.image-loading::after {
+    animation: none;
+  }
+  .sk-settle,
+  .sk-fade-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

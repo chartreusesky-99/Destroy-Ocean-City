@@ -1,17 +1,16 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  NgZone,
-  OnDestroy,
-  ViewChild,
-  signal
-} from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, NgZone, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+// Service Imports
 import { ApiService } from '../../services/api-service';
 import { IdentityService } from '../../services/identity-service';
-import { PostPreviewer } from '../../shared/post-viewers/post-previewer';
-import { PostViewer } from '../../shared/post-viewers/post-viewer';
+import { TitleService } from '../../services/title-service';
+
+// Component Imports
+import { PostPreviewer } from './post-viewers/post-previewer';
+import { PostViewer } from './post-viewers/post-viewer';
+
+// Model Imports
 import { post } from '../../models/post-model';
 import { postComment } from '../../models/postComment-model';
 
@@ -21,7 +20,7 @@ export interface isolation {
 }
 
 @Component({
-  selector: 'app-blog',
+  selector: 'doc-blog',
   imports: [ PostPreviewer, PostViewer ],
   templateUrl: './blog.html',
   styleUrl: './blog.css'
@@ -48,7 +47,8 @@ export class Blog implements AfterViewInit, OnDestroy {
     private api: ApiService,
     public identity: IdentityService,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private titleService: TitleService
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +71,8 @@ export class Blog implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.titleService.resetSiteTitle();
+
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
     }
@@ -93,6 +95,7 @@ export class Blog implements AfterViewInit, OnDestroy {
         next: ({ post, comments }) => {
           this.post.set(post);
           this.comments.set(comments);
+          this.titleService.setCustomSiteTitle(post.title.rendered);
         },
         complete: () => {
           this.isLoadingSinglePost.set(false);

@@ -9,7 +9,7 @@
     <p>
       Outsiders want to install off-shore Windmills on our beautiful beaches. Did you know Windmills are three times taller than the Sears Tower? Stand united with us at DESTROY OCEAN CITY! and help save our beautiful city! 
     </p>
-    <button class="btn btn-lg btn-primary doc-button-red" href="javascript(0):void;" [routerLink]="['/blog']" role="button">
+    <button class="btn btn-lg btn-primary text-white" [routerLink]="['/blog']" role="button">
       Learn OUR Facts »
     </button>
   </div>
@@ -17,26 +17,39 @@
 
 <hr>
 
-<section class="recent-posts">
+<section class="recent-posts" style="min-height: 565px;">
   <h2 class="text-secondary cursor-default mb-2">
     <i class="bi bi-megaphone-fill text-primary"></i>&nbsp;<span class="oblique-secondary">See What the Experts are Saying:</span>
   </h2>
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    @if (posts().length === 0) {
+    @if (isLoading()) {
+      @for (skeleton of skeletonCards; track skeleton; let i = $index) {
+        <div class="col">
+          <div class="card h-100 sk-settle" [style.--reveal-delay]="(i * 80) + 'ms'">
+            <div class="landing-sk-image shimmer"></div>
+            <div class="card-body">
+              <div class="sk-box landing-sk-title shimmer"></div>
+              <div class="sk-line shimmer"></div>
+              <div class="sk-line shimmer" style="width: 85%"></div>
+              <div class="sk-line shimmer" style="width: 65%"></div>
+              <div class="sk-circle landing-sk-author shimmer"></div>
+            </div>
+          </div>
+        </div>
+      }
+    } @else if (posts().length === 0) {
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <p>
-              No posts to display.
-            </p>
+            <p>No posts to display.</p>
           </div>
         </div>
       </div>
     } @else {
-      @for (post of posts(); track $index) {
-        <div class="col">
+      @for (post of posts(); track post.id; let i = $index) {
+        <div class="col sk-settle" [style.--reveal-delay]="(i * 80) + 'ms'">
           <div class="card h-100">
-            <app-postPreviewer [post]="post" [cropFeaturedImage]="true"></app-postPreviewer>
+            <postPreviewer [post]="post" [cropFeaturedImage]="true"></postPreviewer>
           </div>
         </div>
       }

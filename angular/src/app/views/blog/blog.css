@@ -14,13 +14,13 @@
 .blog-heading {
   opacity: 0;
   transform: translateY(10px);
-  animation: fade-slide-up 380ms ease-out forwards;
+  animation: sk-fade-up 380ms ease-out forwards;
 }
 
 .blog-toolbar {
   opacity: 0;
   transform: translateY(8px);
-  animation: fade-slide-up 380ms ease-out 120ms forwards;
+  animation: sk-fade-up 380ms ease-out 120ms forwards;
 }
 
 .sort-toggle {
@@ -46,7 +46,7 @@
   overflow: hidden;
   opacity: 0;
   transform: translateY(12px);
-  animation: fade-slide-up 320ms ease-out forwards;
+  animation: sk-fade-up 320ms ease-out forwards;
 }
 
 .single-post-loading-title,
@@ -140,7 +140,7 @@
 .skeleton-card {
   opacity: 0;
   transform: translateY(12px) scale(0.985);
-  animation: card-settle 420ms cubic-bezier(.2, .7, .2, 1) forwards;
+  animation: sk-settle 420ms cubic-bezier(.2, .7, .2, 1) forwards;
   animation-delay: var(--reveal-delay, 0ms);
   overflow: hidden;
 }
@@ -187,45 +187,6 @@
   background: var(--doc-skeleton-bg);
 }
 
-.shimmer {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  transform: translateX(-100%);
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--doc-shimmer-peak) 50%,
-    transparent 100%
-  );
-  animation: shimmer-move 1.45s linear infinite;
-}
-
-@keyframes fade-slide-up {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes card-settle {
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes shimmer-move {
-  to {
-    transform: translateX(100%);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .single-post-loading,
   .blog-heading,
@@ -235,10 +196,6 @@
     animation: none;
     opacity: 1;
     transform: none;
-  }
-
-  .shimmer::after {
-    animation: none;
   }
 }
 

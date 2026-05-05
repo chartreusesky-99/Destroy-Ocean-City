@@ -1,0 +1,159 @@
+{
+    "printfulProducts": [
+        {
+            "id": 0,
+            "name": "name",
+            "slug": "slug",
+            "slogans": [
+                "optional"
+            ],
+            "description": "description",
+            "addendum": "optional",
+            "images": [],
+            "variant": "sizes",
+            "promoted": false,
+            "soldOut": false
+        },
+        {
+            "id": 429777971,
+            "name": "Cool Red Hat",
+            "slug": "cool-red-hat",
+            "slogans": [
+                "Finally, a red hat cooler than your uncle's",
+                "Are you really ultra-DOC if you don't have one of these?",
+                "A real head-turner on the boardwalk",
+                "This hat screams 'I'm friendly and good natured'",
+                "If you are not wearing a hat right now, you need this",
+                "What?"
+            ],
+            "description": "Make Thanksgiving interesting again this year with this fashionable conversation piece, made with the highest quality foreign labor just like the real thing.",
+            "addendum": "10 miles out, 114 Windmills.",
+            "images": ["left-quarter","front","right-quarter","right","rear","left"],
+            "variant": "sizes",
+            "promoted": true,
+            "soldOut": false
+        },
+        {
+            "id": 430023753,
+            "name": "Virtue Bag",
+            "slug": "tote-bag-medium",
+            "slogans": [
+                "Some people pay 25\u00a2 for their grocery bags",
+                "A modern take on a public radio logo bag",
+                "Not small, not large. Just medium",
+                "Like that one famous vehicle magnate said, it comes in any color"
+            ],
+            "description": "Let this bag do the talking. Durable enough to carry your groceries, stylish enough to carry your survival gear.",
+            "addendum": "Does not hold bottles of wine.",
+            "images": ["front","tag"],
+            "variant": "style",
+            "promoted": true,
+            "soldOut": false
+        },
+        {
+            "id": 430026191,
+            "name": "Large Virtue Bag",
+            "slug": "tote-bag-large",
+            "slogans": [
+                "Designed for the Minivan crowd",
+                "Imagine taking this to the beach",
+                "Great capacity, great ethos. All around great bag"
+            ],
+            "description": "This bag doubles as a punting devices while fully laden and at max speed down the wrong way of the aisle. If you know, you know.",
+            "addendum": "Can hold one additional gallon of milk compared to other sizes.",
+            "images": ["back","front","tag"],
+            "variant": "style",
+            "promoted": true,
+            "soldOut": false
+        },{
+            "id": 430510498,
+            "name": "Run of the Mill Black Tee",
+            "slug": "boring-black-tee",
+            "slogans": [
+                "This one will really help you stand out amongst all of the other black logo tees",
+                "They say Gen Z hates black clothing",
+                "This shirt says... I have brand identity",
+                "The logo is not small, it's negative space",
+                "I might spill coffee on myself and this is my safety net"
+            ],
+            "description": "This is an exciting product. You see, what we did was: we put our logo on a black t-shirt. This is the kind of innovation you can expect around here.",
+            "addendum": "We will never shoot one of these out of a cannon.",
+            "images": ["left-quarter","front","right-quarter","back"],
+            "variant": "sizes",
+            "promoted": true,
+            "soldOut": false
+        },{
+            "id": 430514245,
+            "name": "Strong Guy Shirt",
+            "slug": "strong-guy-shirt",
+            "slogans": [
+                "Could get cold in the winter",
+                "Is this shirt missing something?",
+                "Oye cómo va, papá",
+                "Fuck",
+                "Shoveling coal, handsome?",
+                "This barely satisfies the no-shirt requirement"
+            ],
+            "description": "Bro, you need this shit.",
+            "addendum": "Feel free to send us photos of you in this shirt.",
+            "images": ["front-hangar","front", "back", "back-detail"],
+            "variant": "sizes",
+            "promoted": true,
+            "soldOut": false
+        },{
+            "id": 430520663,
+            "name": "Flip Straw Statement Piece",
+            "slug": "flip-straw-masterpiece",
+            "slogans": [
+                "Why did they choose the ugliest color for the detail views?",
+                "Off shore windmills would prevent you from enjoying this water",
+                "Convenience priced accordingly",
+                "Don't put an orange crush in it"
+            ],
+            "description": "Your water bottle says everything about you, you like to hydrate, you like to burn coal, you like to save whales. That's all it needs to say.",
+            "addendum": "Water revolution.",
+            "images": ["hero-green","hero-clear","hero-blue","hero-black","back","left","front","right","top-quarter"],
+            "variant": "colors",
+            "promoted": true,
+            "soldOut": false
+        },{
+            "id": 430522961,
+            "name": "White DOCC Top",
+            "slug": "white-crop-top",
+            "slogans": [
+                "I think I have seen this one somewhere...",
+                "Hot mama!",
+                "Does not crop docks",
+                "For those hot Ocean City days",
+                "What the hell does dock crop even mean?",
+                "Wait, is it Dock Crop or Dock Top?"
+            ],
+            "description": "You heard it here first, folks. The world's first DOCC Crop. I mean, the world's first DOCC Top. Crop... Top... Dock... it's like a Dock that you wear to the-no, that's not right.\nJust buy one for yourself and get back to us about this.",
+            "addendum": "Sounds better in our radio spot.",
+            "images": ["right-quarter","front","back"],
+            "variant": "sizes",
+            "promoted": true,
+            "soldOut": false
+        }
+    ],
+    "genericContent": {
+        "slogans": [
+            "Another great product from our product team",
+            "Express yourself with our views",
+            "Your local porch pirate is going to love this",
+            "Hey, I like it",
+            "Everybody else is buying this, right now, you are missing out",
+            "Your favorite celebrity or influencer actually has like 20 of these",
+            "This would look great on you, or near you, or wherever it would exist contextually",
+            "You won't regret it",
+            "As Seen On TV",
+            "#DestroyOceanCity",
+            "Unlike casinos, we don't have to distribute flyers for this behavior",
+            "This one, it's for you",
+            "Makes for a great gift!",
+            "This would look great amongst all of your other things"
+        ],
+        "description": "We don't know much about this item, really, but it's probably really great.",
+        "promoted": true
+    }
+}
